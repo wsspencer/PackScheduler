@@ -1,11 +1,12 @@
 package edu.ncsu.csc216.todolist.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Observable;
+import java.util.Observer;
 
 import edu.ncsu.csc216.todolist.util.LinkedList;
 
-public class TaskList implements Tabular {
+public class TaskList extends Observable implements Tabular, Observer {
 
 	private LinkedList list;
 	

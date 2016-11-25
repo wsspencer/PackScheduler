@@ -1,8 +1,10 @@
 package edu.ncsu.csc216.todolist.ui;
 
+import java.awt.Component;
 import java.sql.Date;
 import java.util.EventListener;
 import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -14,7 +16,7 @@ import edu.ncsu.csc216.todolist.model.Category;
 import edu.ncsu.csc216.todolist.model.CategoryList;
 import edu.ncsu.csc216.todolist.model.TaskList;
 
-public class TaskEditPane {
+public class TaskEditPane extends Component implements Observer {
 	
 	//instance
 	private TaskData data;

@@ -1,10 +1,11 @@
 package edu.ncsu.csc216.todolist.model;
 
 import java.util.Observable;
+import java.util.Observer;
 
 import edu.ncsu.csc216.todolist.util.ArrayList;
 
-public class CategoryList implements Tabular {
+public class CategoryList extends Observable implements Tabular, Observer {
 
 	private ArrayList list;
 	
@@ -14,7 +15,7 @@ public class CategoryList implements Tabular {
 	
 	private int nextCategoryNum;
 	
-	public CategoryList() {
+	public CategoryList() { 
 		//unimplemented
 	}
 	
@@ -80,6 +81,7 @@ public class CategoryList implements Tabular {
 	public void update(Observable o, Object arg) {
 		//unimplemented
 	}
+
 }
 
 
