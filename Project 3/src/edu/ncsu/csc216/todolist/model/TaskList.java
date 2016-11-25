@@ -84,6 +84,8 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	public boolean addTask(String title, String details, Date startDateTime, Date endDateTime, Category c) {
 		//unimplemented
 		//Make sure I imported the correct date....sql or java.util?
+		Task t = new Task(title, details, startDateTime, endDateTime, c, Integer.toString(this.nextTaskNum));
+		t.addObserver(this);
 		return false;
 	}
 	/**

@@ -2,13 +2,15 @@ package edu.ncsu.csc216.todolist.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 /**
  * This is a class for outlining the tasks and characteristics of a Task
  * 
  * @author Scott Spencer
  *
  */
-public class Task implements Serializable {
+public class Task extends Observable implements Serializable {
 	/** This is a class variable for the category of this Task */
 	private Category category;
 	/** This is our long constant for the serial version UID this class will utilize */

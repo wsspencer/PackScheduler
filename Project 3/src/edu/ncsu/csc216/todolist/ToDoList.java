@@ -2,8 +2,10 @@ package edu.ncsu.csc216.todolist;
 
 import java.io.Serializable;
 import java.util.Observable;
+import java.util.Observer;
 
 import edu.ncsu.csc216.todolist.model.CategoryList;
+import edu.ncsu.csc216.todolist.model.Task;
 import edu.ncsu.csc216.todolist.model.TaskList;
 
 /**
@@ -12,7 +14,7 @@ import edu.ncsu.csc216.todolist.model.TaskList;
  * @author Scott Spencer
  *
  */
-public class ToDoList implements Serializable {
+public class ToDoList extends Observable implements Serializable, Observer {
 	
 	//instances
 	/** This is our instance of TaskList that holds tasks */
@@ -105,6 +107,8 @@ public class ToDoList implements Serializable {
 	 */
 	public CategoryList getCategoryList() {
 		//unimplemented
+		CategoryList cL = new CategoryList();
+		cL.addObserver(this);
 		return null;
 	}
 	/**
@@ -113,6 +117,8 @@ public class ToDoList implements Serializable {
 	 */
 	public int addTaskList() {
 		//unimplemented
+		TaskList tL = new TaskList(null, null);
+		tL.addObserver(this);
 		return 0;
 	}
 	/**

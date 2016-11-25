@@ -43,6 +43,8 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 */
 	public boolean addCategory(String name, String desc) {
 		//unimplemented
+		Category c = new Category(name, desc, Integer.toString(this.nextCategoryNum));
+		c.addObserver(this);
 		return false;
 	}
 	/**
