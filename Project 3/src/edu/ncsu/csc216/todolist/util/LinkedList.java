@@ -1,8 +1,10 @@
 package edu.ncsu.csc216.todolist.util;
 
-public class LinkedList implements List {
+import java.io.Serializable;
+
+public class LinkedList implements List, Serializable {
 	
-	public class Node {
+	public class Node implements Serializable{
 		
 		private Node next;
 		

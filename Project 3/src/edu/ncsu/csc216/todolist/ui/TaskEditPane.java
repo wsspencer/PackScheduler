@@ -1,6 +1,7 @@
 package edu.ncsu.csc216.todolist.ui;
 
 import java.awt.Component;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.EventListener;
 import java.util.Observable;
@@ -16,7 +17,7 @@ import edu.ncsu.csc216.todolist.model.Category;
 import edu.ncsu.csc216.todolist.model.CategoryList;
 import edu.ncsu.csc216.todolist.model.TaskList;
 
-public class TaskEditPane extends Component implements Observer {
+public class TaskEditPane extends Component implements Serializable, Observer {
 	
 	//instance
 	private TaskData data;

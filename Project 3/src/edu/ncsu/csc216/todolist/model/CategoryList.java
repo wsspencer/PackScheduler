@@ -1,11 +1,12 @@
 package edu.ncsu.csc216.todolist.model;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
 import edu.ncsu.csc216.todolist.util.ArrayList;
 
-public class CategoryList extends Observable implements Tabular, Observer {
+public class CategoryList extends Observable implements Tabular, Serializable, Observer {
 
 	private ArrayList list;
 	

@@ -1,8 +1,9 @@
 package edu.ncsu.csc216.todolist.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Task {
+public class Task implements Serializable {
 
 	private Category category;
 

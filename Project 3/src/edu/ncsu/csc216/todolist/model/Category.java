@@ -1,6 +1,8 @@
 package edu.ncsu.csc216.todolist.model;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable{
 
 	private static final long serialVersionUID = 459188L;
 	

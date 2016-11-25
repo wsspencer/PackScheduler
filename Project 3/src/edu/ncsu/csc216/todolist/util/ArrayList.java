@@ -1,6 +1,8 @@
 package edu.ncsu.csc216.todolist.util;
 
-public class ArrayList implements List {
+import java.io.Serializable;
+
+public class ArrayList implements List, Serializable {
 	
 	private static final long serialVersionUID = 28592L;
 	

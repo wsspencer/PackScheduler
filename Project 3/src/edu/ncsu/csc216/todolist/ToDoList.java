@@ -1,5 +1,6 @@
 package edu.ncsu.csc216.todolist;
 
+import java.io.Serializable;
 import java.util.Observable;
 
 import edu.ncsu.csc216.todolist.model.CategoryList;
@@ -11,7 +12,7 @@ import edu.ncsu.csc216.todolist.model.TaskList;
  * @author Scott Spencer
  *
  */
-public class ToDoList {
+public class ToDoList implements Serializable {
 	
 	//instances
 	/** This is our instance of TaskList that holds tasks */
