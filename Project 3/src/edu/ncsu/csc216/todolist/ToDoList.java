@@ -1,5 +1,10 @@
 package edu.ncsu.csc216.todolist;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
@@ -7,6 +12,7 @@ import java.util.Observer;
 import edu.ncsu.csc216.todolist.model.CategoryList;
 import edu.ncsu.csc216.todolist.model.Task;
 import edu.ncsu.csc216.todolist.model.TaskList;
+import edu.ncsu.csc216.todolist.util.ArrayList;
 
 /**
  * This class functions as the engine of our to-do list.  It utilizes other classes in the model package to interact with an 
@@ -18,13 +24,13 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	
 	//instances
 	/** This is our instance of TaskList that holds tasks */
-	private TaskList tasks;
+	private TaskList[] tasks;
 	/** This is our instance of CategoryList that holds categories of tasks */
 	private CategoryList categories;
 	/** This is our long constant for the serial version UID this class will utilize */
 	private static final long serialVersionUID = 34992L;
 	/** This is our integer constant for resizing the list of lists */
-	private static final int RESIZE = 0;
+	private static final int RESIZE = 3;
 	/** This is our integer variable for the number of lists we have */
 	private int numLists;
 	/** This is our string variable for the filename we will use for this data */
@@ -129,18 +135,69 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		//unimplemented
 	}
 	/**
-	 * This is the void method we use to save our dataset with the parameterized filename
-	 * @param fileName the String representing the filename we want to associate to this dataset
+	 * Saves the CategoryList and the array of TaskLists to the given file using 
+	 * object serialization.  
+	 * @param fname filename to save ToDoList information to.
 	 */
-	public void saveDataFile(String fileName) {
-		//unimplemented
+	public void saveDataFile(String fname) {
+		try {
+			FileOutputStream fileOut = new FileOutputStream(fname);
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			for (int i = 0; i < numLists; i++) {
+				out.writeObject(tasks[i]);
+			}
+			out.writeObject(categories);
+			out.writeObject(filename);
+			out.writeInt(nextTaskListNum);
+			changed = false;
+			out.close();
+			fileOut.close();
+		}
+		catch (IOException e) {
+			System.err.println("An error occurred while saving file " + fname);
+			e.printStackTrace(System.err);
+		}
 	}
 	/**
-	 * This is the void method we use to open a data file stored under the parameterized filename
-	 * @param fileName the String representing the name associated with our desired dataset
+	 * Opens a data file with the given name and creates the data structures from 
+	 * the serialized objects in the file.
+	 * @param fname filename to create ToDoList information from.
 	 */
-	public void openDataFile(String fileName) {
-		//unimplemented
+	public void openDataFile(String fname) {
+		if (changed) {
+			saveDataFile(filename);
+		}
+		try {
+			FileInputStream fileIn = new FileInputStream(fname);
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			ArrayList<TaskList> temp = new ArrayList<TaskList>();
+			Object tl = in.readObject();
+			while (tl instanceof TaskList) {
+				TaskList l = (TaskList)tl;
+				l.addObserver(this);
+				temp.add(l);
+				tl = in.readObject();
+			}
+			tasks = new TaskList[RESIZE];
+			tasks = temp.toArray(tasks);
+			numLists = temp.size();
+			categories = (CategoryList)tl;
+			categories.addObserver(this);
+			filename = (String)in.readObject();
+			nextTaskListNum = (int)in.readInt();
+			changed = false;
+			in.close();
+			fileIn.close();
+			
+		}
+		catch (IOException e) {
+			System.err.println("An error occurred while reading file " + fname);
+			e.printStackTrace(System.err);
+		}
+		catch (ClassNotFoundException c) {
+			System.err.println("Error reconstructing ToDoList from file " + fname);
+			c.printStackTrace(System.err);
+		}
 	}
 	/**
 	 * This is the void method that is automatically called when a task list changes.  TaskList 

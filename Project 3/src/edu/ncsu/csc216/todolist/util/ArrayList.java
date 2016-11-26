@@ -2,18 +2,20 @@ package edu.ncsu.csc216.todolist.util;
 
 import java.io.Serializable;
 
+import edu.ncsu.csc216.todolist.model.TaskList;
+
 /**
  * This is a class used to define the methods and characteristics of a custom ArrayList
  * @author Scott Spencer
  *
  */
-public class ArrayList implements List, Serializable {
+public class ArrayList<E> implements List, Serializable {
 	/** This is our long constant for the serial version UID this class will utilize */
 	private static final long serialVersionUID = 28592L;
 	/** This is a class variable of an integer we use to resize the list */
 	private static final int RESIZE = 0;
 	/** This is a class variable used to store the elements of the list in an Object array */
-	private Object[] list;
+	private E[] list;
 	/** This is a class variable used to store the size of the list */
 	private int size;
 	/**
@@ -108,5 +110,14 @@ public class ArrayList implements List, Serializable {
 	public int indexOf(Object o) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	/**
+	 * I don't even know if this is right...
+	 * @param tasks some tasks
+	 * @return E[] an array of objects
+	 */
+	public E[] toArray(E[] tasks) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
