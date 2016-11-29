@@ -73,9 +73,10 @@ public class Category extends Observable implements Serializable{
 	 * @param o the Object we want to compare to
 	 * @return boolean a boolean representing whether the two objects are equal
 	 */
-	public boolean equals(Object o) {
-		//unimplemented
-		return false;
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
 	}
 	/**
 	 * This is an integer method used for comparing this instance of a Category to another
@@ -90,18 +91,23 @@ public class Category extends Observable implements Serializable{
 	 * This is an integer method used for generating hash code
 	 * @return int hashed code
 	 */
+	@Override
 	public int hashCode() {
-		//unimplemented
-		return 0;
+		// TODO Auto-generated method stub
+		return super.hashCode();
 	}
 	/**
 	 * This is a String method for generating a String represenation of our category's data
 	 * @return String representation of our Category
 	 */
+	@Override
 	public String toString() {
-		//unimplemented
-		return "";
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
+
+
+	
 }
 
 

@@ -14,7 +14,7 @@ import edu.ncsu.csc216.todolist.util.ArrayList;
 public class CategoryList extends Observable implements Tabular, Serializable, Observer {
 
 	/** This is a class variable for the list of Categories in ArrayList form */
-	private ArrayList list;
+	private ArrayList<Category> list;
 	/** This is our long constant for the serial version UID this class will utilize */
 	private static final long serialVersionUID = 984509L;
 	/** This is a String representation of the name of the category list instance */
@@ -53,8 +53,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * @return Category instance we want to retrieve from the list
 	 */
 	public Category getCategoryAt(int index) {
-		//unimplemented
-		return null;
+		return this.list.get(index);
 	}
 	/**
 	 * This is an integer method used to return the index at which the category with the parameterized
@@ -81,14 +80,16 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 */
 	public int size() {
 		//unimplemented
-		return 0;
+		return this.list.size();
 	}
 	/**
 	 * This is a boolean method for returning whether or not the list is empty.
 	 * @return boolean stating true/false if the list is/isn't empty
 	 */
 	public boolean isEmpty() {
-		//unimplemented
+		if (this.size() == 0) {
+			return true;
+		}
 		return false;
 	}
 	/**
@@ -114,8 +115,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * @return int the integer representing the "number" of the next category in line
 	 */
 	private int getNextCategoryNum() {
-		//unimplemented
-		return 0;
+		return this.nextCategoryNum;
 	}
 	/**
 	 * This is avoid method for incrementing the "next" category number (for navigating the list)
@@ -137,9 +137,12 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * @param o the observable we want updated
 	 * @param arg the object we want updated
 	 */
-	public void update(Observable o, Object arg) {
-		//unimplemented
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
 	}
+
 }
 
 

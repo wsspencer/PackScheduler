@@ -54,7 +54,7 @@ public class Task extends Observable implements Serializable {
 	 * @param title the String title we want to set to our task
 	 */
 	public void setTitle(String title) {
-		//unimplemented
+		this.title = title;
 	}
 	/**
 	 * This is a simple getter method from retrieving the details of the task
@@ -68,7 +68,7 @@ public class Task extends Observable implements Serializable {
 	 * @param details String representation of the task details
 	 */
 	public void setDetails(String details) {
-		//unimplemented
+		this.details = details;
 	}
 	/**
 	 * This is a simple getter method for retrieving the start date and time of 
@@ -84,7 +84,7 @@ public class Task extends Observable implements Serializable {
 	 * @param startDate The start date and time we want the task's set to
 	 */
 	public void setStartDateTime(Date startDate) {
-		//unimplemented
+		this.startDateTime = startDate;
 	}
 	/**
 	 * This is a simple getter method for retrieving the due date and time of this task
@@ -99,7 +99,7 @@ public class Task extends Observable implements Serializable {
 	 * @param dueDate the due date and time
 	 */
 	public void setDueDateTime(Date dueDate) {
-		//unimplemented
+		this.dueDateTime = dueDate;
 	}
 	/**
 	 * This is a simple getter method for retrieving the completed date and time of this task
@@ -114,7 +114,7 @@ public class Task extends Observable implements Serializable {
 	 * @param compDate the completed date and time
 	 */
 	public void setCompletedDateTime(Date compDate) {
-		//unimplemented
+		this.completedDateTime = compDate;
 	}
 	/**
 	 * This is a boolean method for telling if the task is completed
@@ -128,14 +128,14 @@ public class Task extends Observable implements Serializable {
 	 * @param compStatus true/false of if the task should be set to complete or not
 	 */
 	public void setCompleted(boolean compStatus) {
-		//unimplemented
+		this.completed = compStatus;
 	}
 	/**
 	 * This is a simple setter method for setting the category to the parameterized one
 	 * @param c the category we want to set this task to
 	 */
 	public void setCategory(Category c) {
-		//unimplemented
+		this.category = c;
 	}
 	/**
 	 * This is a simple getter method for retrieving this task's category
@@ -157,23 +157,25 @@ public class Task extends Observable implements Serializable {
 	 * @param iD the identifier we want to set this task to
 	 */
 	private void setTaskID(String iD) {
-		//unimplemented
+		this.taskID = taskID;
 	}
 	/**
 	 * This is a boolean method for returning if this task equals the parameter
 	 * @return boolean stating whether or not the task equals the parameterized object
 	 */
-	public boolean equals(Object o) {
-		//unimplemented
-		return false;
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
 	}
 	/**
 	 * This is an integer method for hashing code
 	 * @return int representation of that hashed code
 	 */
+	@Override
 	public int hashCode() {
-		//unimplemented
-		return 0;
+		// TODO Auto-generated method stub
+		return super.hashCode();
 	}
 	/**
 	 * This is an integer method for comparing this task to the parameter

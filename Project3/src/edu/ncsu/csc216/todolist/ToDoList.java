@@ -50,44 +50,41 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @return boolean stating whether or not the list has changed
 	 */
 	public boolean isChanged() {
-		//unimplemented
-		return false;
+		return this.changed;
 	}
 	/**
 	 * This is a method for setting the changed boolean variable to the parameterized value
 	 * @param changed boolean we want to set our changed variable to.
 	 */
 	public void setChanged(boolean changed) {
-		//unimplemented
+		this.changed = changed;
 	}
 	/**
 	 * This is a method for retrieving the filename we are using for this instance of data
 	 * @return String representation of the filename
 	 */
 	public String getFilename() {
-		//unimplemented
-		return "";
+		return this.filename;
 	}
 	/**
 	 * This is a void method for setting the data's filename to the parameterized value
 	 * @param filename the string filename we want to set our variable to
 	 */
 	public void setFilename(String filename) {
-		//unimplemented
+		this.filename = filename;
 	}
 	/**
 	 * This is a method used to retrieve the number of the "next" task list
 	 * @return int representing the index number of the "next" task list
 	 */
 	private int getNextTaskListNum() {
-		//unimplemented
-		return 0;
+		return this.nextTaskListNum;
 	}
 	/**
 	 * This is a void method for incrementing the index number of the "next" task list
 	 */
 	private void incNextTaskListNum() {
-		//unimplemented
+		this.nextTaskListNum++;
 	}
 	/**
 	 * This is an integer method for retrieving the number of task lists we are storing

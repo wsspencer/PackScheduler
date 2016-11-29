@@ -77,7 +77,7 @@ public class ArrayList<E> implements List, Serializable {
 	 * @return Object at the given index
 	 */
 	@Override
-	public Object get(int index) {
+	public E get(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -97,7 +97,7 @@ public class ArrayList<E> implements List, Serializable {
 	 * @return Object the object that is removed from the list
 	 */
 	@Override
-	public Object remove(int index) {
+	public E remove(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}

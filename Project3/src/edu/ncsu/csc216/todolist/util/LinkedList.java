@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author Scott Spencer
  *
  */
-public class LinkedList implements List, Serializable {
+public class LinkedList<E> implements List, Serializable {
 	/**
 	 * This is a nested class for defining the characteristics of a Node to be used in this linked list
 	 * @author Scott Spencer
@@ -18,7 +18,7 @@ public class LinkedList implements List, Serializable {
 		/** This is our long constant for the serial version UID this class will utilize */
 		private static final long serialVersionUID = 484909840L;
 		/** This is a package-private (protected) class variable for the value held in this node */
-		protected Object value;
+		protected E value;
 		/**
 		 * This is the constructor method used for creating a new node with the given parameters
 		 * @param data the object we want stored in this node of the list
@@ -129,7 +129,7 @@ public class LinkedList implements List, Serializable {
 	 * @return Object at the given index
 	 */
 	@Override
-	public Object get(int index) {
+	public E get(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -149,7 +149,7 @@ public class LinkedList implements List, Serializable {
 	 * @return Object the object that is removed from the list
 	 */
 	@Override
-	public Object remove(int index) {
+	public E remove(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}

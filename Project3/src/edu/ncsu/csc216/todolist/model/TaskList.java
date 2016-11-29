@@ -14,7 +14,7 @@ import edu.ncsu.csc216.todolist.util.LinkedList;
  */
 public class TaskList extends Observable implements Tabular, Serializable, Observer {
 	/** This is a class variable for the list of Tasks in LinkedList form */
-	private LinkedList list;
+	private LinkedList<Task> list;
 	/** This is our long constant for the serial version UID this class will utilize */
 	private static final long serialVersionUID = 98734509L;
 	/** This is a String representation of the name of the task list instance */
@@ -43,7 +43,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @param newName String representation of the name of this list
 	 */
 	public void setName(String newName) {
-		//unimplemented
+		this.name = newName;
 	}
 	/**
 	 * This is a simple getter method for task list unique id
@@ -57,7 +57,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @param newId the integer we want to set this task list id to
 	 */
 	private void setTaskListID(int newId) {
-		//unimplemented
+		this.taskListID = Integer.toString(newId);
 	}
 	/**
 	 * This is a simple getter method for retrieving the next task number in line
@@ -94,8 +94,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @return Task that is stored at that task number
 	 */ 
 	public Task getTaskAt(int taskNum) {
-		//unimplemented
-		return null;
+		return this.list.get(taskNum);
 	}
 	/**
 	 * This is an int method for retrieving the index of the task with the title in the parameter
