@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -91,8 +92,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @return int value representing the total task lists
 	 */
 	public int getNumTaskLists() {
-		//unimplemented
-		return 0;
+		return this.tasks.length;
 	}
 	/**
 	 * This is a method used to retrieve the TaskList object stored at the parameterized index
@@ -100,8 +100,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @return TaskList the task list stored at the parameterized index
 	 */
 	public TaskList getTaskList(int listIndex) {
-		//unimplemented
-		return null;
+		return this.tasks[listIndex];
 	}
 	/**
 	 * This is the CategoryList method we use to retrieve the list of categories object corresponding
@@ -109,27 +108,65 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @return CategoryList corresponding to the current instance
 	 */
 	public CategoryList getCategoryList() {
-		//unimplemented
-		CategoryList cL = new CategoryList();
-		cL.addObserver(this);
-		return null;
+		this.categories.addObserver(this);
+		return this.categories;
 	}
 	/**
-	 * This is the integer method used to add a task list to our dataset
+	 * This is the integer method used to add a new task list to our dataset
 	 * @return integer index of the added task list
 	 */
 	public int addTaskList() {
-		//unimplemented
+		//create an empty task list to add and add this as an observer to it
 		TaskList tL = new TaskList(null, null);
 		tL.addObserver(this);
-		return 0;
+		
+		//index where we will put tL
+		int index = this.tasks.length;
+		//Create new tasklist array of size one greater than our current instance
+		TaskList[] tempTasks = new TaskList[index + 1];
+		//Make the temp array exactly like our current instance, with one empty index on the end
+		for (int i = 0; i < index; i++) {
+			tempTasks[i] = this.tasks[i];
+		}
+		//since the size of tempTasks is one greater than our current instance, the length of our
+		//instance should be the same as the last index in tempTasks
+		tempTasks[index] = tL;
+		this.tasks = tempTasks;
+		//notify observers of this class to the change
+		this.notifyObservers();
+		//return the index of the added tasklist
+		return index;
 	}
 	/**
 	 * This is the void method we use to remove a task list stored at the parameterized index
 	 * @param listIndex the integer representing the index of the task list we want to remove
 	 */
 	public void removeTaskList(int listIndex) {
-		//unimplemented
+		//check for index out of bounds exception
+		if (listIndex < 0 || listIndex >= this.tasks.length) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		//remove this as an observer from the index we are removing 
+		this.tasks[listIndex].deleteObserver(this);
+		//notify the observers of todolist of the change
+		
+		//make a new array of size one smaller than our current to replace our current instance
+		TaskList[] tempTasks = new TaskList[this.tasks.length - 1];
+		//make our new array a copy of our current instance up until the index we want removed
+		for (int i = 0; i < listIndex; i++) {
+			tempTasks[i] = this.tasks[i];
+		}
+		//skip over the index we want removed and continue making our copy (remember tempTasks is one
+		//smaller than our current instance so its indexes will be exactly offset by one)
+		for (int i = listIndex + 1; i < this.tasks.length; i++) {
+			tempTasks[i - 1] = this.tasks[i];
+		}
+		//replace our current instance with tempTasks
+		this.tasks = tempTasks;
+		
+		//notify observers of this class to the change
+		this.notifyObservers();
 	}
 	/**
 	 * Saves the CategoryList and the array of TaskLists to the given file using 
@@ -203,8 +240,11 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @param o the Observable that may or may not be used in the task list 
 	 * @param arg an object argument passed to notifyObservers().
 	 */
+	@Override
 	public void update(Observable o, Object arg) {
-		//unimplemented
+		// Is automatically called? Do I implement that or is it implicitly part of the code?
+		o.notifyObservers(arg);
+		setChanged(true);
 	}
 }
 
