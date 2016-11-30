@@ -31,6 +31,10 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	public TaskList(String listName, String listId) {
 		setName(listName);
 		setTaskListID(Integer.valueOf(listId));
+		//initialize our instance of a linked list
+		this.list = new LinkedList<Task>();
+		//initialize nextTaskNum
+		this.nextTaskNum = 1;
 	}
 	/**
 	 * This is a simple getter method for the name of this task list
@@ -166,7 +170,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @return Object[][] 2D object array of the data in the list
 	 */
 	public Object[][] get2DArray() {
-		//unimplemented
+		//This will probably be what's printed to the GUI table
 		return null;
 	}
 	/**

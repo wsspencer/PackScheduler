@@ -25,7 +25,10 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * This is our constructor method for a new instance of a CategoryList
 	 */
 	public CategoryList() { 
-		//unimplemented
+		//initialize our instance of an arraylist
+		this.list = new ArrayList<Category>();
+		this.name = "New List";
+		this.nextCategoryNum = 1;
 	}
 	/**
 	 * This is a simple getter method for retrieving the name of this category list
@@ -43,9 +46,13 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 */
 	public boolean addCategory(String name, String desc) {
 		//unimplemented
-		Category c = new Category(name, desc, Integer.toString(this.nextCategoryNum));
+		Category c = new Category(name, desc, Integer.toString(this.getNextCategoryNum()));
+		//increment nextCategoryNum since we used the current one as an identifier for "c"
+		this.incNextCategoryNum();
+		//add this instance as an observer to our "c" Category
 		c.addObserver(this);
-		return false;
+		//add "c" to our instance of an arraylist and return whether or not it was successful to do so
+		return this.list.add(c);
 	}
 	/**
 	 * This is a simple getter method for returning the category at the parameterized index
@@ -129,7 +136,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 */
 	@Override
 	public Object[][] get2DArray() {
-		// TODO Auto-generated method stub
+		//this will probably be whats printed to the GUI table
 		return null;
 	} 
 	/**
