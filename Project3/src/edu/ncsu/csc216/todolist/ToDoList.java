@@ -6,12 +6,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
 import edu.ncsu.csc216.todolist.model.CategoryList;
-import edu.ncsu.csc216.todolist.model.Task;
 import edu.ncsu.csc216.todolist.model.TaskList;
 import edu.ncsu.csc216.todolist.util.ArrayList;
 
@@ -44,7 +42,22 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * This is our constructor method for the to-do list
 	 */
 	public ToDoList() {
-		//unimplemented
+		//initializes nextTaskListNum at 1
+		this.nextTaskListNum = 1;
+		//creates a list of task lists with at least 3 elements
+		this.tasks = new TaskList[RESIZE];
+		//sets first element in our list of task lists to a new task list with the given parameters
+		this.tasks[0] = new TaskList("New List", "TL" + this.nextTaskListNum);
+		//increments nextTaskListNum since we used the current nextTaskListNum for the indentifier of index 0
+		this.incNextTaskListNum();
+		
+		//constructs a new category list
+		this.categories = new CategoryList();
+		//add this todolist instance as an observer of the category list
+		this.categories.addObserver(this);
+		
+		//set the changed status of this instance to false
+		this.changed = false;
 	}
 	/**
 	 * This is a method for checking if the to-do list has changed
@@ -75,8 +88,8 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		this.filename = filename;
 	}
 	/**
-	 * This is a method used to retrieve the number of the "next" task list (for ID #s)
-	 * @return int representing the index number of the "next" task list for the purpose of giving a unique identifyer to new lists
+	 * This is a method used to retrieve the number of the "next" task list (for ID #s.  Initiated at 1, then increments)
+	 * @return int representing the index number of the "next" task list for the purpose of giving a unique identifier to new lists
 	 */
 	private int getNextTaskListNum() {
 		return this.nextTaskListNum;
@@ -117,15 +130,14 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 */
 	public int addTaskList() {
 		//create a task list to add with New List for name and "TL#" whatever the next tasklist number is and add this as an observer to it
-		TaskList tL = new TaskList("New List", ("TL#" + this.getNextTaskListNum()));
+		TaskList tL = new TaskList("New List", ("TL" + this.getNextTaskListNum()));
+		//add this instance of ToDoList as an observer to our new task list
 		tL.addObserver(this);
-		//Now that we have used the next task list number in line for the above task's ID number, we will need to increment the next TaskListNum
-		this.incNextTaskListNum();
 		
-		//index where we will put tL
+		//index where we will put "tL"
 		int index = this.tasks.length;
 		//Create new tasklist array of size one greater than our current instance
-		TaskList[] tempTasks = new TaskList[index + 1];
+		TaskList[] tempTasks = new TaskList[index + RESIZE];
 		//Make the temp array exactly like our current instance, with one empty index on the end
 		for (int i = 0; i < index; i++) {
 			tempTasks[i] = this.tasks[i];
@@ -134,6 +146,9 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		//instance should be the same as the last index in tempTasks
 		tempTasks[index] = tL;
 		this.tasks = tempTasks;
+		//Now that we have used the next task list number in line for the above task's ID number and successfully added the task list to our list,
+		//we will need to increment the next TaskListNum for later use
+		this.incNextTaskListNum();
 		//notify observers of this class to the change
 		this.notifyObservers();
 		//return the index of the added tasklist
