@@ -105,8 +105,9 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * @return Category the category stored at the parameterized index
 	 */
 	public Category removeCategoryAt(int index) {
-		//unimplemented
-		return null;
+		//call our instance of arraylist and return whether or not we were able to remove the parameterized
+		//index from the arraylist
+		return this.list.remove(index);
 	}
 	/**
 	 * This is a boolean method for removing a category with the given identifier
@@ -114,7 +115,13 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * @return boolean stating whether or not the category was removed from the list
 	 */
 	public boolean removeCategory(String iD) {
-		//unimplemented
+		//run the loop until we find a category ID equal to the parameter, if it is not found, return false
+		for (int i = 0; i < this.list.size(); i++) {
+			if (this.list.get(i).getCategoryID().equals(iD)) {
+				this.list.remove(i);
+				return true;
+			}
+		}
 		return false;
 	}
 	/**
