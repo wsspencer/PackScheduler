@@ -25,9 +25,9 @@ public class ArrayList<E> implements List, Serializable {
 	}
 	/**
 	 * This is a constructor method used to create a new instance of an ArrayList of a specific size
-	 * @param size integer representation of the number of elements in the list
+	 * @param initSize integer representation of the number of elements in the list
 	 */
-	public ArrayList(int size) {
+	public ArrayList(int initSize) {
 		//unimplemented
 		//not sure if size is correct param
 	}
@@ -52,8 +52,16 @@ public class ArrayList<E> implements List, Serializable {
 	 */
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		//this will be our check to see if there are any elements in our array of objects
+		boolean emptyCheck = true;
+		//this will loop for the entirety of our array and check each index to see if it holds a value
+		for (int i = 0; i < this.list.length; i++) {
+			if (this.list[i] != null) {
+				//updates our emptycheck to false if the index at i in our array holds a value
+				emptyCheck = false;
+			}
+		}
+		return emptyCheck;
 	}
 	/**
 	 * This is a boolean method for checking if the list contains a certain object
@@ -62,8 +70,16 @@ public class ArrayList<E> implements List, Serializable {
 	 */
 	@Override
 	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		//this will be our check to see if an element in our array is equal to the parameter
+		boolean contains = false;
+		// this will loop for the entirety of our array and check each index for objects equal to our parameter
+		for (int i = 0; i < this.list.length; i++) {
+			if (this.list[i] == o) {
+				//updates our contain check to true if the object at i is equal to our parameter
+				contains = true;
+			}
+		}
+		return contains;
 	}
 	/**
 	 * This is a boolean method for adding an element to the list
