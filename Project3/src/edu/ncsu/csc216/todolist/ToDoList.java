@@ -75,14 +75,14 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		this.filename = filename;
 	}
 	/**
-	 * This is a method used to retrieve the number of the "next" task list
-	 * @return int representing the index number of the "next" task list
+	 * This is a method used to retrieve the number of the "next" task list (for ID #s)
+	 * @return int representing the index number of the "next" task list for the purpose of giving a unique identifyer to new lists
 	 */
 	private int getNextTaskListNum() {
 		return this.nextTaskListNum;
 	}
 	/**
-	 * This is a void method for incrementing the index number of the "next" task list
+	 * This is a void method for incrementing the index number of the "next" task list so that we may keep adding new tasks
 	 */
 	private void incNextTaskListNum() {
 		this.nextTaskListNum++;
@@ -116,9 +116,11 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @return integer index of the added task list
 	 */
 	public int addTaskList() {
-		//create an empty task list to add and add this as an observer to it
-		TaskList tL = new TaskList(null, null);
+		//create a task list to add with New List for name and "TL#" whatever the next tasklist number is and add this as an observer to it
+		TaskList tL = new TaskList("New List", ("TL#" + this.getNextTaskListNum()));
 		tL.addObserver(this);
+		//Now that we have used the next task list number in line for the above task's ID number, we will need to increment the next TaskListNum
+		this.incNextTaskListNum();
 		
 		//index where we will put tL
 		int index = this.tasks.length;
