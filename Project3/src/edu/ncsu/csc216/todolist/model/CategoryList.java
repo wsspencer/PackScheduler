@@ -138,7 +138,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * @param arg the object we want updated
 	 */
 	@Override
-	public void update(Observable arg0, Object arg1) {
+	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		
 	}

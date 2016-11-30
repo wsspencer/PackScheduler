@@ -4,6 +4,7 @@ import java.io.Serializable;
 /**
  * This is a class for defining the operations and characteristics of our custom Linked List
  * @author Scott Spencer
+ * @param E the abstract object that can be any object we want our linked list to contain
  *
  */
 public class LinkedList<E> implements List, Serializable {
@@ -12,7 +13,7 @@ public class LinkedList<E> implements List, Serializable {
 	 * @author Scott Spencer
 	 *
 	 */
-	public class Node implements Serializable{
+	public class Node implements Serializable {
 		/** This is a self-referential variable for referencing the "next" node in the list (recursive data structure) */
 		private Node next;
 		/** This is our long constant for the serial version UID this class will utilize */
@@ -130,7 +131,7 @@ public class LinkedList<E> implements List, Serializable {
 	 */
 	@Override
 	public E get(int index) {
-		// TODO Auto-generated method stub
+		//walk the list until you get to the desired index
 		return null;
 	}
 	/**

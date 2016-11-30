@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 
 import edu.ncsu.csc216.todolist.model.Category;
 import edu.ncsu.csc216.todolist.model.CategoryList;
-import edu.ncsu.csc216.todolist.model.TaskList;
 /**
  * This is a class used to display the pane we use to edit tasks
  * @author Scott Spencer

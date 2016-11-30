@@ -3,7 +3,6 @@ package edu.ncsu.csc216.todolist.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Observable;
-import java.util.Observer;
 /**
  * This is a class for outlining the tasks and characteristics of a Task
  * 
@@ -142,7 +141,7 @@ public class Task extends Observable implements Serializable {
 	 * @return Category of this task
 	 */
 	public Category getCategory() {
-		return this.getCategory();
+		return this.category;
 	}
 	/**
 	 * This is a simple getter method for retrieving this task's unique identifier
@@ -157,7 +156,7 @@ public class Task extends Observable implements Serializable {
 	 * @param iD the identifier we want to set this task to
 	 */
 	private void setTaskID(String iD) {
-		this.taskID = taskID;
+		this.taskID = iD;
 	}
 	/**
 	 * This is a boolean method for returning if this task equals the parameter

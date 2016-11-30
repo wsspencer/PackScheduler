@@ -8,7 +8,7 @@ import java.util.Observable;
  * @author Scott Spencer
  *
  */
-public class Category extends Observable implements Serializable{
+public class Category extends Observable implements Serializable {
 	/** This is our long constant for the serial version UID this class will utilize */
 	private static final long serialVersionUID = 459188L;
 	/** This is the class variable for a category's name */
@@ -70,7 +70,7 @@ public class Category extends Observable implements Serializable{
 	}
 	/**
 	 * This is a boolean method for returning whether or not our category equals the parameterized object
-	 * @param o the Object we want to compare to
+	 * @param obj the Object we want to compare to
 	 * @return boolean a boolean representing whether the two objects are equal
 	 */
 	@Override

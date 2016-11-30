@@ -2,11 +2,10 @@ package edu.ncsu.csc216.todolist.util;
 
 import java.io.Serializable;
 
-import edu.ncsu.csc216.todolist.model.TaskList;
-
 /**
  * This is a class used to define the methods and characteristics of a custom ArrayList
  * @author Scott Spencer
+ * @param E abstract object used to define what this will be an arraylist of
  *
  */
 public class ArrayList<E> implements List, Serializable {
@@ -39,8 +38,13 @@ public class ArrayList<E> implements List, Serializable {
 	 */
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		int size = 0;
+		for (int i = 0; i < this.list.length; i++) {
+			if (this.list[i] != null) {
+				size++;
+			}
+		}
+		return size;
 	}
 	/**
 	 * This is a boolean method for returning whether the list has any elements in it
@@ -78,8 +82,7 @@ public class ArrayList<E> implements List, Serializable {
 	 */
 	@Override
 	public E get(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.list[index];
 	}
 	/**
 	 * This is a void method used to add an element to a specific index in the list
