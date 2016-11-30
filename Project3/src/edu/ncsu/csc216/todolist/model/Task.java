@@ -39,7 +39,12 @@ public class Task extends Observable implements Serializable {
 	 * @param id This is the unique identifier of the task
 	 */
 	public Task(String title, String details, Date startDateTime, Date endDateTime, Category c, String id) {
-		//unimplemented
+		setTitle(title);
+		setDetails(details);
+		setStartDateTime(startDateTime);
+		setDueDateTime(endDateTime);
+		setCategory(c);
+		setTaskID(id);
 	}
 	/**
 	 * This is a simple getter method for retrieving a string representation of the title

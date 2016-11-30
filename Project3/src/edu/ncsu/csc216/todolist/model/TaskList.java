@@ -29,7 +29,8 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @param listId the unique identifier of this task list
 	 */
 	public TaskList(String listName, String listId) {
-		//unimplemented
+		setName(listName);
+		setTaskListID(Integer.valueOf(listId));
 	}
 	/**
 	 * This is a simple getter method for the name of this task list
@@ -83,10 +84,14 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 */
 	public boolean addTask(String title, String details, Date startDateTime, Date endDateTime, Category c) {
 		//unimplemented
-		//Make sure I imported the correct date....sql or java.util?
-		Task t = new Task(title, details, startDateTime, endDateTime, c, Integer.toString(this.nextTaskNum));
+		Task t = new Task(title, details, startDateTime, endDateTime, c, Integer.toString(this.getNextTaskNum()));
+		//increment next task num since we used the current one on "t"
+		this.incNextTaskNum();
+		//add this as observer to our "t" task
 		t.addObserver(this);
-		return false;
+		//add and return if it was added or not
+		return this.list.add(t);
+		
 	}
 	/**
 	 * This is a simple getter method for retrieving the task at the given task number
@@ -94,6 +99,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @return Task that is stored at that task number
 	 */ 
 	public Task getTaskAt(int taskNum) {
+		//call the build in get method in our linkedlist instance
 		return this.list.get(taskNum);
 	}
 	/**
@@ -102,23 +108,31 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @return int representation of the index where our desired task is stored
 	 */
 	public int indexOf(String taskTitle) {
-		//unimplemented
-		return 0;
+		//run loop to get titles at indexes of list until correct title is found
+		for (int i = 0; i < this.list.size(); i++) {
+			if (this.list.get(i).getTitle().equals(taskTitle)) {
+				return i;
+			}
+		}
+		//if loop runs out without finding appropriate title, return -1
+		return -1;
 	}
 	/**
 	 * This is a method for retrieving the size of this list
 	 * @return int representing the number of elements in the list
 	 */
 	public int size() {
-		//unimplemented
-		return 0;
+		//call the build in size method in our linkedlist instance
+		return this.list.size();
 	}
 	/**
 	 * This is a boolean method for returning whether or not the list is empty
 	 * @return boolean stating whether or not the list is empty
 	 */
 	public boolean isEmpty() {
-		//unimplemented
+		if (this.list.isEmpty()) {
+			return true;
+		}
 		return false;
 	}
 	/**
@@ -127,8 +141,8 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @return the Task that was removed
 	 */
 	public Task removeTaskAt(int taskNum) {
-		//unimplemented
-		return null;
+		//call the build in remove method in our linkedlist instance
+		return this.list.remove(taskNum);
 	}
 	/**
 	 * This is a boolean method for removing the task from the list with a given title
@@ -136,7 +150,15 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @return boolean stating whether or not the task was removed from the list
 	 */
 	public boolean removeTask(String taskTitle) {
-		//unimplemented
+		//loop increment until we reach our linked list's size, checking each increment index's title to 
+		//see if it equals our parameter
+		for (int i = 0; i < this.list.size(); i++) {
+			if (this.list.get(i).getTitle().equals(taskTitle)) {
+				this.list.remove(i);
+				return true;
+			}
+		}
+		//if task with that title is not found in looping, return false
 		return false;
 	}
 	/**

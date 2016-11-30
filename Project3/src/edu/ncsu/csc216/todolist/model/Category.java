@@ -24,7 +24,9 @@ public class Category extends Observable implements Serializable {
 	 * @param id The String representation of a category's unique identifier
 	 */
 	public Category(String name, String desc, String id) {
-		//unimplemented
+		setName(name);
+		setDescription(desc);
+		setCategoryID(id);
 	}
 	/**
 	 * This is a simple getter method for our category's name
