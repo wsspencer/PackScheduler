@@ -111,15 +111,16 @@ public class LinkedList implements List, Serializable {
 	}
 	/**
 	 * This is an integer method for returning the size of (a section of the list?)
-	 * @param listNode the node we need for finding the size (apparently)
+	 * @param n the node we need for finding the size (apparently)
 	 * @return int representing the number of elements in he given section of the list?
 	 */
-	private int size(Node head) {
+	private int size(Node n) {
 		//find size recursively
-        if (head == null)
+        if (n == null)
             return 0;
         else
-            return 1 + size(head.next);
+        	//keep calling this method recursively, adding 1 to it, until our node.next is null
+            return 1 + size(n.next);
 	}
 	/**
 	 * This is an integer method for returning the size of the list
@@ -136,8 +137,13 @@ public class LinkedList implements List, Serializable {
 	 */
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		//check if the size is 0
+		if (this.size() == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	/**
 	 * This is a boolean method for checking if the list contains a certain object
@@ -146,7 +152,11 @@ public class LinkedList implements List, Serializable {
 	 */
 	@Override
 	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
+		//checks if the parameterized object has an index in the list
+		if (this.indexOf(o) != -1) {
+			return true;
+		}
+		//returns false if the index of the parameterized object is not found in the list
 		return false;
 	}
 	/**
@@ -174,7 +184,14 @@ public class LinkedList implements List, Serializable {
 	@Override
 	public Object get(int index) {
 		//walk the list until you get to the desired index (or call the recursive method? do we have one? too lazy to check...)
-		return null;
+		Node walker = this.head;
+		for (int i = 0; i < index; i++) {
+			walker = walker.next;
+		}
+		//since we stopped at the index just before our parameter (remember we used < not <=), we can call walker.next to retrieve
+		//the node stored at the desired index
+		return walker.next.value;
+		//do we need to return the node or the value in the node?  find that out.  probably value, right?
 	}
 	/**
 	 * This is a void method used to add an element to a specific index in the list
