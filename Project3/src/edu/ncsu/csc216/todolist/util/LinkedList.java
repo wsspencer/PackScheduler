@@ -30,7 +30,8 @@ public class LinkedList implements List, Serializable {
 			this.value = data;
 		}
 	}
-	/** This is a class variable that will designate the first node in the list */
+	/** This is a class variable that will designate the first node in the list and serve as our only link to this instance for
+	 * our recursive methods to use in their navigation */
 	private Node head;
 	/** This is our long constant for the serial version UID this class will utilize */
 	private static final long serialVersionUID = 349987L;
@@ -48,29 +49,44 @@ public class LinkedList implements List, Serializable {
 	 * @param head the next node for this node
 	 * @return Node the Node we are inserting
 	 */
-	private Node insertAt(int index, Object data, Node head) {
-		//walk the list until we are at the index we want to insert at
-		for (int i = 0; i < index; i++) {
-			head = head.next;
+	private Node insertAt(int index, Object data, Node n) {
+		//Use recursion to insert the parameterized data at the parameterized index.  Calling the next node to navigate recursively 
+		//we're basically counting the index down to 1. Every time we run the method recursively, simultaneously calling the method 
+		//with the next node in line, so theoretically we should be able to get to the desired index, because when we are at 1, the
+		//current node.next is the desired index we want to insert our data in (or, index 0 if we count down all the way to it)
+		if (index == 1) {
+			//set the node we are on's next node to a new node that contains the data we want to insert and has a next node that was
+			//previously the next node of the node we are currently on, effectively just inserting a new node and tying it to the previous
+			//node so as not to disrupt the rest of the list.  Also, we return the node we inserted.
+			Node temp = n.next;
+			n.next = new Node(data, temp);
+			return n.next;
 		}
-		//set a temporary node to the node we want to come AFTER the node we insert
-		Node temp = head.next;
-		//set the desired index to a new node containing our parameter for its data and the node that previous
-		//to this, occupied the index we just inserted into, as its "next" node
-		head.next = new Node(data, temp);
-		//return the new node we just inserted
-		return head.next;
+		else {
+			insertAt(index--, data, n.next);
+		}
+		//if we don't find the data in the list, return null
+		return null;
 	}
 	/**
 	 * This is an int method used for retrieving the index of a node with the given
 	 * constraints
 	 * @param data the data stored in the node 
-	 * @param next the next node in line
+	 * @param n the next node in line
 	 * @param index the number for the node
 	 * @return 
 	 */
-	private int indexOf(Object data, Node next, int index) {
-		//find index recursively
+	private int indexOf(Object data, Node n, int index) {
+		//find the index of the info passed recursively (assuming the public method will pass us the head and index of 0 for our start
+		if (n.value == data) {
+			return index;
+		}
+		else {
+			//call the method for recursion, with the same data we're looking for and the next node in list and incremented index 
+			//(incrementing index so we can return the correct index when we find the appropriate data in the list node)
+			indexOf(data, n.next, index++);
+		}
+		//return -1 if we don't find it using recursion
 		return -1;
 	}
 	/**
@@ -140,8 +156,15 @@ public class LinkedList implements List, Serializable {
 	 */
 	@Override
 	public boolean add(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		// call the insertAt private method to use recursion to add a method to the end of the list (index of the size
+		// of the list - 1) and return false if it returns false, true if it was successful and returns the node it added 
+		// to the list.
+		if (insertAt(this.size() - 1, o, this.head) == null) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	/**
 	 * This is an Object method for retrieving an Object stored at a given index
@@ -150,7 +173,7 @@ public class LinkedList implements List, Serializable {
 	 */
 	@Override
 	public Object get(int index) {
-		//walk the list until you get to the desired index
+		//walk the list until you get to the desired index (or call the recursive method? do we have one? too lazy to check...)
 		return null;
 	}
 	/**
@@ -160,8 +183,8 @@ public class LinkedList implements List, Serializable {
 	 */
 	@Override
 	public void add(int index, Object o) {
-		// TODO Auto-generated method stub
-		
+		// call recursive method insert at with the given parameters and our instance's head node
+		insertAt(index, o, this.head);
 	}
 	/**
 	 * This is an Object method for removing an element stored at the given index
@@ -180,7 +203,8 @@ public class LinkedList implements List, Serializable {
 	 */
 	@Override
 	public int indexOf(Object o) {
-		// call private indexOf to find the index
-		return 0;
+		// call private indexOf that uses to find the index holding the parameterized data. 
+		//(Needs this instance's head node and a starting index of 0 to begin the recursion)
+		return indexOf(o, head, 0);
 	}
 }
