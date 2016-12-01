@@ -187,8 +187,19 @@ public class Task extends Observable implements Serializable {
 	 * @return int representing the results of the comparison
 	 */
 	public int compareTo(Task t) {
-		//unimplemented
-		return 0;
+		int equal = 0;
+		
+		if (this.title.equals(t.title) && this.details.equals(t.details)) {
+			return equal;
+		}
+		
+		int comparison = this.title.compareToIgnoreCase(t.title);
+	    if (comparison != equal) return comparison;
+	    
+	    comparison = this.details.compareToIgnoreCase(t.details);
+	    if (comparison != equal) return comparison;
+
+	    return equal; 
 	}
 }
 

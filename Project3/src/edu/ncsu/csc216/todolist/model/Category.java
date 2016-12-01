@@ -86,8 +86,19 @@ public class Category extends Observable implements Serializable {
 	 * @return int representing our comparison
 	 */
 	public int compareTo(Category c) {
-		//unimplemented
-		return 0;
+		int equal = 0;
+		
+		if (this.name.equals(c.name) && this.description.equals(c.description)) {
+			return equal;
+		}
+		
+		int comparison = this.name.compareToIgnoreCase(c.name);
+	    if (comparison != equal) return comparison;
+	    
+	    comparison = this.description.compareToIgnoreCase(c.description);
+	    if (comparison != equal) return comparison;
+
+	    return equal; 
 	}
 	/**
 	 * This is an integer method used for generating hash code
@@ -107,8 +118,6 @@ public class Category extends Observable implements Serializable {
 		// TODO Auto-generated method stub
 		return super.toString();
 	}
-
-
 	
 }
 

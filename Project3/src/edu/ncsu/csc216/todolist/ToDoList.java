@@ -221,7 +221,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		try {
 			FileInputStream fileIn = new FileInputStream(fname);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
-			ArrayList<TaskList> temp = new ArrayList<TaskList>();
+			ArrayList temp = new ArrayList();
 			Object tl = in.readObject();
 			while (tl instanceof TaskList) {
 				TaskList l = (TaskList)tl;
@@ -230,7 +230,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 				tl = in.readObject();
 			}
 			tasks = new TaskList[RESIZE];
-			tasks = temp.toArray(tasks);
+			tasks = (TaskList[]) temp.toArray(tasks);
 			numLists = temp.size();
 			categories = (CategoryList)tl;
 			categories.addObserver(this);

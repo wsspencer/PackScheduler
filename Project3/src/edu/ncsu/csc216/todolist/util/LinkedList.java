@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @param E the abstract object that can be any object we want our linked list to contain
  *
  */
-public class LinkedList<E> implements List, Serializable {
+public class LinkedList implements List, Serializable {
 	/**
 	 * This is a nested class for defining the characteristics of a Node to be used in this linked list
 	 * @author Scott Spencer
@@ -19,14 +19,15 @@ public class LinkedList<E> implements List, Serializable {
 		/** This is our long constant for the serial version UID this class will utilize */
 		private static final long serialVersionUID = 484909840L;
 		/** This is a package-private (protected) class variable for the value held in this node */
-		protected E value;
+		protected Object value;
 		/**
 		 * This is the constructor method used for creating a new node with the given parameters
 		 * @param data the object we want stored in this node of the list
 		 * @param next the Node we want next in line of the list
 		 */
 		public Node(Object data, Node next) {
-			//unimplemented
+			this.next = next;
+			this.value = data;
 		}
 	}
 	/** This is a class variable that will designate the first node in the list */
@@ -37,43 +38,59 @@ public class LinkedList<E> implements List, Serializable {
 	 * This is a constructor method for creating a new instance of a linked list
 	 */
 	public LinkedList() {
-		//unimplemented
+		this.head = null;
 	}
 	/**
 	 * This is a Node method used to insert a node with the given data and the given "next" node reference 
 	 * AT the given index
 	 * @param index the index where we want the node
 	 * @param data the object we want stored in the node
-	 * @param next the next node for this node
-	 * @return the Node we are inserting?
+	 * @param head the next node for this node
+	 * @return Node the Node we are inserting
 	 */
-	private Node insertAt(int index, Object data, Node next) {
-		//unimplemented
-		return null;
+	private Node insertAt(int index, Object data, Node head) {
+		//walk the list until we are at the index we want to insert at
+		for (int i = 0; i < index; i++) {
+			head = head.next;
+		}
+		//set a temporary node to the node we want to come AFTER the node we insert
+		Node temp = head.next;
+		//set the desired index to a new node containing our parameter for its data and the node that previous
+		//to this, occupied the index we just inserted into, as its "next" node
+		head.next = new Node(data, temp);
+		//return the new node we just inserted
+		return head.next;
 	}
 	/**
 	 * This is an int method used for retrieving the index of a node with the given
 	 * constraints
 	 * @param data the data stored in the node 
 	 * @param next the next node in line
-	 * @param number the number for the node
+	 * @param index the number for the node
 	 * @return 
 	 */
-	private int indexOf(Object data, Node next, int number) {
-		//unimplemented
-		//not sure what that integer parameter is suppose to be...
-		return 0;
+	private int indexOf(Object data, Node next, int index) {
+		//find index recursively
+		return -1;
 	}
 	/**
 	 * This is a Node method used for removing a node from the list, given the index we 
 	 * want to remove and the node we want to come next
 	 * @param index of the node
-	 * @param next the next node
+	 * @param n the node we will use as pointer
 	 * @return Node that was removed
 	 */
-	private Node remove(int index, Node next) {
-		//unimplemented
-		//params may be wrong
+	private Node remove(int index, Node n) {
+		//recursively find the right index and remove (I guess assuming we are passed the head to begin with from the public method?)
+		if (index == 0) {
+			//leapfrog that shit
+			Node temp = n.next;
+			n.next = temp.next;
+			return temp;
+		}
+		else {
+			remove(index--, n.next);
+		}
 		return null;
 	}
 	/**
@@ -81,10 +98,12 @@ public class LinkedList<E> implements List, Serializable {
 	 * @param listNode the node we need for finding the size (apparently)
 	 * @return int representing the number of elements in he given section of the list?
 	 */
-	private int size(Node listNode) {
-		//unimplemented
-		//param may be wrong
-		return 0;
+	private int size(Node head) {
+		//find size recursively
+        if (head == null)
+            return 0;
+        else
+            return 1 + size(head.next);
 	}
 	/**
 	 * This is an integer method for returning the size of the list
@@ -92,8 +111,8 @@ public class LinkedList<E> implements List, Serializable {
 	 */
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		//call to our private recursive size method to find a publicly accessible size
+		return size(head);
 	}
 	/**
 	 * This is a boolean method for returning whether the list has any elements in it
@@ -130,7 +149,7 @@ public class LinkedList<E> implements List, Serializable {
 	 * @return Object at the given index
 	 */
 	@Override
-	public E get(int index) {
+	public Object get(int index) {
 		//walk the list until you get to the desired index
 		return null;
 	}
@@ -150,9 +169,9 @@ public class LinkedList<E> implements List, Serializable {
 	 * @return Object the object that is removed from the list
 	 */
 	@Override
-	public E remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object remove(int index) {
+		//call the private recursive method to navigate the list starting with the head node we have
+		return this.remove(index, this.head);
 	}
 	/**
 	 * This is an integer method for retrieving the index where a given object is stored in the list
@@ -161,7 +180,7 @@ public class LinkedList<E> implements List, Serializable {
 	 */
 	@Override
 	public int indexOf(Object o) {
-		// TODO Auto-generated method stub
+		// call private indexOf to find the index
 		return 0;
 	}
 }

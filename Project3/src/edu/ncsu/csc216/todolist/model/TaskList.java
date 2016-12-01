@@ -14,7 +14,7 @@ import edu.ncsu.csc216.todolist.util.LinkedList;
  */
 public class TaskList extends Observable implements Tabular, Serializable, Observer {
 	/** This is a class variable for the list of Tasks in LinkedList form */
-	private LinkedList<Task> list;
+	private LinkedList list;
 	/** This is our long constant for the serial version UID this class will utilize */
 	private static final long serialVersionUID = 98734509L;
 	/** This is a String representation of the name of the task list instance */
@@ -32,7 +32,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 		setName(listName);
 		setTaskListID(Integer.valueOf(listId));
 		//initialize our instance of a linked list
-		this.list = new LinkedList<Task>();
+		this.list = new LinkedList();
 		//initialize nextTaskNum
 		this.nextTaskNum = 1;
 	}
@@ -104,7 +104,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 */ 
 	public Task getTaskAt(int taskNum) {
 		//call the build in get method in our linkedlist instance
-		return this.list.get(taskNum);
+		return (Task) this.list.get(taskNum);
 	}
 	/**
 	 * This is an int method for retrieving the index of the task with the title in the parameter
@@ -114,7 +114,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	public int indexOf(String taskTitle) {
 		//run loop to get titles at indexes of list until correct title is found
 		for (int i = 0; i < this.list.size(); i++) {
-			if (this.list.get(i).getTitle().equals(taskTitle)) {
+			if (((Task) this.list.get(i)).getTitle().equals(taskTitle)) {
 				return i;
 			}
 		}
@@ -146,7 +146,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 */
 	public Task removeTaskAt(int taskNum) {
 		//call the build in remove method in our linkedlist instance
-		return this.list.remove(taskNum);
+		return (Task) this.list.remove(taskNum);
 	}
 	/**
 	 * This is a boolean method for removing the task from the list with a given title
@@ -157,7 +157,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 		//loop increment until we reach our linked list's size, checking each increment index's title to 
 		//see if it equals our parameter
 		for (int i = 0; i < this.list.size(); i++) {
-			if (this.list.get(i).getTitle().equals(taskTitle)) {
+			if (((Task) this.list.get(i)).getTitle().equals(taskTitle)) {
 				this.list.remove(i);
 				return true;
 			}

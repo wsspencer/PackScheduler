@@ -14,7 +14,7 @@ import edu.ncsu.csc216.todolist.util.ArrayList;
 public class CategoryList extends Observable implements Tabular, Serializable, Observer {
 
 	/** This is a class variable for the list of Categories in ArrayList form */
-	private ArrayList<Category> list;
+	private ArrayList list;
 	/** This is our long constant for the serial version UID this class will utilize */
 	private static final long serialVersionUID = 984509L;
 	/** This is a String representation of the name of the category list instance */
@@ -26,7 +26,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 */
 	public CategoryList() { 
 		//initialize our instance of an arraylist
-		this.list = new ArrayList<Category>();
+		this.list = new ArrayList();
 		this.name = "New List";
 		this.nextCategoryNum = 1;
 	}
@@ -60,7 +60,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * @return Category instance we want to retrieve from the list
 	 */
 	public Category getCategoryAt(int index) {
-		return this.list.get(index);
+		return (Category) this.list.get(index);
 	}
 	/**
 	 * This is an integer method used to return the index at which the category with the parameterized
@@ -107,7 +107,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	public Category removeCategoryAt(int index) {
 		//call our instance of arraylist and return whether or not we were able to remove the parameterized
 		//index from the arraylist
-		return this.list.remove(index);
+		return (Category) this.list.remove(index);
 	}
 	/**
 	 * This is a boolean method for removing a category with the given identifier
@@ -117,7 +117,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	public boolean removeCategory(String iD) {
 		//run the loop until we find a category ID equal to the parameter, if it is not found, return false
 		for (int i = 0; i < this.list.size(); i++) {
-			if (this.list.get(i).getCategoryID().equals(iD)) {
+			if (((Category) this.list.get(i)).getCategoryID().equals(iD)) {
 				this.list.remove(i);
 				return true;
 			}
