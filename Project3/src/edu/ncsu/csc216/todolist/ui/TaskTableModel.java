@@ -25,7 +25,9 @@ public class TaskTableModel implements Serializable, TableModel {
 	 */
 	public TaskTableModel(Object[][] taskTableData) {
 		this.data = taskTableData;
-		this.colNames = (String[]) this.data[0];
+		if (this.data.length > 0) {
+			this.colNames = (String[]) this.data[0];
+		}
 	}
 	/**
 	 * This is a simple getter method for retrieving the number of rows in the table
@@ -41,7 +43,10 @@ public class TaskTableModel implements Serializable, TableModel {
 	 */
 	public int getColumnCount() {
 		//length of the first row should be the number of columns
-		return this.data[0].length;
+		if (this.data.length > 0) {
+			return this.data[0].length;
+		}
+		return 0;
 	}
 	/**
 	 * This is a simple getter method for retrieving the value at a given row and column index

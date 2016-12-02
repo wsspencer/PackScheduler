@@ -29,8 +29,8 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @param listId the unique identifier of this task list
 	 */
 	public TaskList(String listName, String listId) {
-		setName(listName);
-		setTaskListID(listId);
+		this.name = listName;
+		this.taskListID = listId;
 		//initialize our instance of a linked list
 		this.list = new LinkedList();
 		//initialize nextTaskNum

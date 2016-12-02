@@ -84,6 +84,15 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 		this.categories = list;
 		this.add = false;
 		this.edit = false;
+		//initialize our instances of some of the spinners and fields the GUI will use
+		this.taskCat = new JComboBox<Category>();
+		this.taskTitle = new JTextField(data.getTitle());
+		//create these from the nested class you added
+		this.taskStart = new JSpinner();
+		this.taskCompleted = new JSpinner();
+		this.taskDue = new JSpinner();
+		this.complete = new JCheckBox();
+		this.taskDetails = new JTextArea();
 		init();
 	}
 	/**
@@ -205,7 +214,7 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 */
 	protected JTextField getTaskTitle() {
 		//make a jtextfield out of the string from data's Title
-		return new JTextField(this.data.getTitle());
+		return this.taskTitle;
 	}
 	/**
 	 * This is a simple getter method for retrieving the category of the task we are editing

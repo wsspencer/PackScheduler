@@ -105,7 +105,14 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @return int value representing the total task lists
 	 */
 	public int getNumTaskLists() {
-		return this.tasks.length;
+		//dont want to just return length or it will count the null indexes in the array as well
+		int counter = 0;
+		for (int i = 0; i < this.tasks.length; i++) {
+			if (this.tasks[i] != null) {
+				counter++;
+			}
+		}
+		return counter;
 	}
 	/**
 	 * This is a method used to retrieve the TaskList object stored at the parameterized index

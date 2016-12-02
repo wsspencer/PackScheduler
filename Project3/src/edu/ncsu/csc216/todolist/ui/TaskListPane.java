@@ -29,6 +29,7 @@ public class TaskListPane extends Component implements Serializable, Observer {
 	 * @param tL the task list we want displayed
 	 */
 	public TaskListPane(TaskList tL) {
+		this.tasks = tL;
 		this.ttm = new TaskTableModel(tasks.get2DArray());
 		this.table = new JTable(this.ttm);
 	}
