@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.swing.event.TableModelListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 import edu.ncsu.csc216.todolist.model.Category;
@@ -12,11 +13,11 @@ import edu.ncsu.csc216.todolist.model.Category;
  * @author Scott Spencer
  *
  */
-public class TaskTableModel implements Serializable, TableModel {
+public class TaskTableModel extends AbstractTableModel implements Serializable, TableModel {
 	/** This is our long constant for the serial version UID this class will utilize */
 	private static final long serialVersionUID = 5954551753060998701L;
 	/** This is a class variable for the table column names stored in an array of Strings */
-	private String[] colNames;
+	private String[] colNames = {"Task ID", "Task Title", "Category", "Start Date/Time", "Completed Date/Time", "End Date/Time", "Completed?", "Details"};
 	/** This is a class variable for storing the data in an easily accessible 2D array of objects */
 	private Object[][] data;
 	/**
@@ -24,10 +25,8 @@ public class TaskTableModel implements Serializable, TableModel {
 	 * @param taskTableData the data we want displayed in the table
 	 */
 	public TaskTableModel(Object[][] taskTableData) {
+		super();
 		this.data = taskTableData;
-		if (this.data.length > 0) {
-			this.colNames = (String[]) this.data[0];
-		}
 	}
 	/**
 	 * This is a simple getter method for retrieving the number of rows in the table
@@ -43,10 +42,7 @@ public class TaskTableModel implements Serializable, TableModel {
 	 */
 	public int getColumnCount() {
 		//length of the first row should be the number of columns
-		if (this.data.length > 0) {
-			return this.data[0].length;
-		}
-		return 0;
+		return colNames.length;
 	}
 	/**
 	 * This is a simple getter method for retrieving the value at a given row and column index
@@ -66,6 +62,7 @@ public class TaskTableModel implements Serializable, TableModel {
 	 */
 	public void setValueAt(Object data, int rowIndex, int colIndex) {
 		this.data[rowIndex][colIndex] = data;
+		fireTableCellUpdated(rowIndex, colIndex);	
 	}
 	/**
 	 * This is a simple getter method for retrieving the task data at a given row
@@ -73,10 +70,8 @@ public class TaskTableModel implements Serializable, TableModel {
 	 * @return TaskData the task data we want from the given index
 	 */
 	public TaskData getTaskRowData(int rowIndex) {
-		TaskData temp = new TaskData(((String) this.data[rowIndex][0]), ((String) this.data[rowIndex][1]), ((Category) this.data[rowIndex][2]), 
-				((Date) this.data[rowIndex][3]), ((Date) this.data[rowIndex][4]),
-				((Date) this.data[rowIndex][5]), ((boolean) this.data[rowIndex][6]), ((String) this.data[rowIndex][7]));
-		return temp;
+		return new TaskData((String)data[rowIndex][0], (String)data[rowIndex][1], (Category)data[rowIndex][2], (Date)data[rowIndex][3], (Date)data[rowIndex][4],
+				(Date)data[rowIndex][5], (boolean)data[rowIndex][6], (String)data[rowIndex][7]);
 	}
 	/**
 	 * This is a simple setter method for setting the data of a given row index to a given data
@@ -84,14 +79,14 @@ public class TaskTableModel implements Serializable, TableModel {
 	 * @param data the data we want to set to the given row
 	 */
 	public void setTaskRowData(int rowIndex, TaskData data) {
-		this.data[rowIndex][0] = data.getTaskID();
-		this.data[rowIndex][1] = data.getTitle();
-		this.data[rowIndex][2] = data.getCategory();
-		this.data[rowIndex][3] = data.getStartDateTime();
-		this.data[rowIndex][4] = data.getDueDateTime();
-		this.data[rowIndex][5] = data.getCompletedDateTime();
-		this.data[rowIndex][6] = data.isCompleted();
-		this.data[rowIndex][7] = data.getDetails();
+		setValueAt(data.getTaskID(), rowIndex, 0);
+		setValueAt(data.getTitle(), rowIndex, 1);
+		setValueAt(data.getCategory(), rowIndex, 2);
+		setValueAt(data.getStartDateTime(), rowIndex, 3);
+		setValueAt(data.getDueDateTime(), rowIndex, 4);
+		setValueAt(data.getCompletedDateTime(), rowIndex, 5);
+		setValueAt(data.isCompleted(), rowIndex, 6);
+		setValueAt(data.getDetails(), rowIndex, 7);
 	}
 	@Override
 	public void addTableModelListener(TableModelListener arg0) {
