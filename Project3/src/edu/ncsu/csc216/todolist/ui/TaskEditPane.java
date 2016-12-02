@@ -85,9 +85,17 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 		this.categories = list;
 		this.add = false;
 		this.edit = false;
+		
+		
+		
+		//!!! move all these to their respective getters.  they require some processing in order for us to determine what they return
 		//initialize our instances of some of the spinners and fields the GUI will use
 		this.taskCat = new JComboBox<Category>();
-		this.taskTitle = new JTextField(data.getTitle());
+		//add the categories in our categorylist to our jcombobox
+		for (int i = 0; i < this.categories.size(); i++) {
+			taskCat.addItem(this.categories.getCategoryAt(i));
+		}
+			
 		//create these from the nested class you added
 		this.taskStart = new JSpinner();
 		this.taskCompleted = new JSpinner();
@@ -101,10 +109,8 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 */
 	private void init() {
 		//set our layout and border for the panel, call our initiate view method, and fill our empty fields
-
-		//these are methods used in category edit pane.  It extends jpanel instead of component so it can call these methods...You need to figure out what the component equivalent is to these jpanel methods
-		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		//setBorder(BorderFactory.createLineBorder(Color.black));
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		setBorder(BorderFactory.createLineBorder(Color.black));
 		initView();
 		fillFields();
 	}
@@ -215,7 +221,13 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 */
 	protected JTextField getTaskTitle() {
 		//make a jtextfield out of the string from data's Title
-		return this.taskTitle;
+		if (null == taskTitle) {
+			taskTitle = new JTextField(50);
+			taskTitle.setEditable(false);
+			taskTitle.setVisible(true);
+			taskTitle.setHorizontalAlignment(SwingConstants.LEFT);
+		}
+		return taskTitle;
 	}
 	/**
 	 * This is a simple getter method for retrieving the category of the task we are editing
