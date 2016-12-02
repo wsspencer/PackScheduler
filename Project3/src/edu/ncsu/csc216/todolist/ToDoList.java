@@ -221,7 +221,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		try {
 			FileInputStream fileIn = new FileInputStream(fname);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
-			ArrayList temp = new ArrayList();
+			ArrayList temp = new ArrayList(); 
 			Object tl = in.readObject();
 			while (tl instanceof TaskList) {
 				TaskList l = (TaskList)tl;

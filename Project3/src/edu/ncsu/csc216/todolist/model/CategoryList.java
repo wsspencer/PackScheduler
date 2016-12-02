@@ -69,8 +69,14 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * @return int index of the desired category
 	 */
 	public int indexOf(String iD) {
-		//unimplemented
-		return 0;
+		for (int i = 0; i < this.list.size(); i++) {
+			//check if the category at the index of i has the same ID as the parameter
+			if (((Category) this.list.get(i)).getCategoryID().equals(iD)) {
+				return i;
+			}
+		}
+		//return -1 if a category with that ID isn't found in the list
+		return -1;
 	}
 	/**
 	 * This is an integer method used to return the index at which a category of the parameterized name is stored
@@ -78,8 +84,14 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * @return the index where the desired Category is stored
 	 */
 	public int indexOfName(String name) {
-		//unimplemented
-		return 0;
+		for (int i = 0; i < this.list.size(); i++) {
+			//check if the category at the index of i has the same name as the parameter
+			if (((Category) this.list.get(i)).getName().equals(name)) {
+				return i;
+			}
+		}
+		//return -1 if a category with that name isn't found in the list
+		return -1;
 	}
 	/**
 	 * This is an integer method for returning the number of elements in this list
@@ -143,8 +155,18 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 */
 	@Override
 	public Object[][] get2DArray() {
-		//this will probably be whats printed to the GUI table
-		return null;
+		//Returns an Object[][] array. Each row, i, contains a Category.
+		//this will be what's printed to the GUI table
+		Object[][] panel = new Object[this.list.size()][3];
+		
+		if (this.list.get(0) != null) {
+			for (int i = 0; i < this.list.size(); i++) {
+				panel[i][0] = ((Category) this.list.get(i)).getCategoryID();
+				panel[i][1] = ((Category) this.list.get(i)).getName();
+				panel[i][2] = ((Category) this.list.get(i)).getDescription();
+			}
+		}
+		return panel;
 	} 
 	/**
 	 * This is a method for updating the list with the parameterized observable and object
@@ -153,8 +175,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		o.notifyObservers(arg);
 	}
 
 }

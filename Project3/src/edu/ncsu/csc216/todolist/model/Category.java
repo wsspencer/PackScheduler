@@ -77,8 +77,11 @@ public class Category extends Observable implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return super.equals(obj);
+		//two categories are considered equal if their IDs are an exact match
+		if (this.categoryID.equals(((Category)obj).categoryID)) {
+			return true;
+		}
+		return false;
 	}
 	/**
 	 * This is an integer method used for comparing this instance of a Category to another
@@ -88,14 +91,11 @@ public class Category extends Observable implements Serializable {
 	public int compareTo(Category c) {
 		int equal = 0;
 		
-		if (this.name.equals(c.name) && this.description.equals(c.description)) {
+		if (this.categoryID.equals(c.categoryID)) {
 			return equal;
 		}
 		
-		int comparison = this.name.compareToIgnoreCase(c.name);
-	    if (comparison != equal) return comparison;
-	    
-	    comparison = this.description.compareToIgnoreCase(c.description);
+		int comparison = this.categoryID.compareToIgnoreCase(c.categoryID);
 	    if (comparison != equal) return comparison;
 
 	    return equal; 
@@ -115,8 +115,7 @@ public class Category extends Observable implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return this.name;
 	}
 	
 }

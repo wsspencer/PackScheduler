@@ -30,7 +30,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 */
 	public TaskList(String listName, String listId) {
 		setName(listName);
-		setTaskListID(Integer.valueOf(listId));
+		setTaskListID(listId);
 		//initialize our instance of a linked list
 		this.list = new LinkedList();
 		//initialize nextTaskNum
@@ -61,8 +61,8 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * This is a simple setter method for the task list id
 	 * @param newId the integer we want to set this task list id to
 	 */
-	private void setTaskListID(int newId) {
-		this.taskListID = Integer.toString(newId);
+	private void setTaskListID(String newId) {
+		this.taskListID = newId;
 	}
 	/**
 	 * This is a simple getter method for retrieving the next task number in line
@@ -170,8 +170,20 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @return Object[][] 2D object array of the data in the list
 	 */
 	public Object[][] get2DArray() {
-		//This will probably be what's printed to the GUI table
-		return null;
+		//Returns an Object[][] array. Each row, i, contains a Category.
+		//this will be what's printed to the GUI table
+		Object[][] panel = new Object[this.list.size()][3];
+		for (int i = 0; i < this.list.size(); i++) {
+			panel[i][0] = ((Task) this.list.get(i)).getTaskID();
+			panel[i][1] = ((Task) this.list.get(i)).getTitle();
+			panel[i][2] = ((Task) this.list.get(i)).getCategory();
+			panel[i][3] = ((Task) this.list.get(i)).getStartDateTime();
+			panel[i][4] = ((Task) this.list.get(i)).getDueDateTime();
+			panel[i][5] = ((Task) this.list.get(i)).getCompletedDateTime();
+			panel[i][6] = ((Task) this.list.get(i)).isCompleted();
+			panel[i][7] = ((Task) this.list.get(i)).getDetails();
+		}
+		return panel;
 	}
 	/**
 	 * This is a void method for updating the task list given the obsevable and object
@@ -179,7 +191,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @param arg the object we are updating the list with
 	 */
 	public void update(Observable o, Object arg) {
-		//unimplemented
+		o.notifyObservers(arg);
 	}
 }
 
