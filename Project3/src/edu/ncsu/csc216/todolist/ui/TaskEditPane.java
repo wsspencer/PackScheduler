@@ -1,17 +1,24 @@
 package edu.ncsu.csc216.todolist.ui;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.EventListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import edu.ncsu.csc216.todolist.model.Category;
 import edu.ncsu.csc216.todolist.model.CategoryList;
@@ -20,7 +27,16 @@ import edu.ncsu.csc216.todolist.model.CategoryList;
  * @author Scott Spencer
  *
  */
-public class TaskEditPane extends Component implements Serializable, Observer {
+//EXTEND COMPONENT OR JPANEL....FIGURE OUT WHICH YOU SHOULD USE AND WHICH WORKS BEST
+public class TaskEditPane extends JPanel implements Serializable, Observer {
+	/**
+	 * This is a nested helper class for our jspinners to have a model of how they should look and behave (and format the date)
+	 * @author Scott Spencer
+	 *
+	 */
+	private class SpinnerDateModel {
+		
+	}
 	
 	//instance
 	/** This is our instance of the task data of the task we are working with */
@@ -52,7 +68,8 @@ public class TaskEditPane extends Component implements Serializable, Observer {
 	 * @param list the Category List of the task we are trying to edit
 	 */
 	public TaskEditPane(CategoryList list) {
-		//unimplemented
+		//call the constructor with a default value for data and the parameterized list
+		this(new TaskData("", "", null, null, null, null, false, ""), list);
 	}
 	/**
 	 * This is a constructor method for creating an instance of TaskEditPane with the given parameter
@@ -60,19 +77,74 @@ public class TaskEditPane extends Component implements Serializable, Observer {
 	 * @param data the Task Data of the task we are trying to edit
 	 */
 	public TaskEditPane(TaskData data, CategoryList list) {
-		//unimplemented
+		//call the super method, set the data for taskdata, set the list for our category list, set it to neither add nor edit mode, and call
+		//the initializer method
+		super();
+		this.data = data;
+		this.categories = list;
+		this.add = false;
+		this.edit = false;
+		init();
 	}
 	/**
 	 * This is a void method for initializing the pane
 	 */
 	private void init() {
-		//unimplemented
+		//set our layout and border for the panel, call our initiate view method, and fill our empty fields
+
+		//these are methods used in category edit pane.  It extends jpanel instead of component so it can call these methods...You need to figure out what the component equivalent is to these jpanel methods
+		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		//setBorder(BorderFactory.createLineBorder(Color.black));
+		initView();
+		fillFields();
 	}
 	/**
 	 * This is a void method for initializing the view of the pane
 	 */
 	private void initView() {
-		//unimplemented
+		//set up our initial view of the pane
+		//Add the ID texfield with label to the pane
+		JPanel p = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		p.add(new JLabel("Task ID: ", SwingConstants.LEFT));
+		p.add(getTaskID());
+		this.add(p);
+		//add the Task name textfield to the pane
+		p = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		p.add(new JLabel("Task Name: ", SwingConstants.LEFT));
+		p.add(getTaskTitle());
+		this.add(p);
+		//add the Task category JComboBox to the pane
+		p = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		p.add(new JLabel("Task Category: ", SwingConstants.LEFT));
+		p.add(getCategory());
+		this.add(p);
+		//add the Task start date JSpinner to the pane
+		p = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		p.add(new JLabel("Task Start Date: ", SwingConstants.LEFT));
+		p.add(getTaskStartSpinner());
+		this.add(p);
+		//add the Task due date JSpinner to the pane
+		p = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		p.add(new JLabel("Task Due Date: ", SwingConstants.LEFT));
+		p.add(getTaskDueSpinner());
+		this.add(p);
+		//add the Task completed date JSpinner to the pane
+		p = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		p.add(new JLabel("Task Completion Date: ", SwingConstants.LEFT));
+		p.add(getTaskCompletedSpinner());
+		this.add(p);
+		//add the Task completed status checkbox to the pane
+		p = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		p.add(new JLabel("Task Completion Status: ", SwingConstants.LEFT));
+		p.add(getComplete());
+		this.add(p);
+		//add the Task details JTextArea to the pane
+		p = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		p.add(new JLabel("Task Details: ", SwingConstants.LEFT));
+		this.add(p);
+		p = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		p.add(getTaskDetails());
+		this.add(p);
 	}
 	/**
 	 * This is a simple getter method for retrieving the spinner of the start date and time
@@ -100,17 +172,16 @@ public class TaskEditPane extends Component implements Serializable, Observer {
 	 * @return Date the task start date and time
 	 */
 	protected Date getTaskStart() {
-		//unimplemented
-		//make sure we imported the right date
-		return null;
+		//get value from the task start Jspinner
+		return (Date) this.taskStart.getValue();
 	}
 	/**
 	 * This is a simple getter method for retrieving the Date of the due date and time
 	 * @return Date the task due date and time
 	 */
 	protected Date getTaskDue() {
-		//unimplemented
-		return null;
+		//get value from the task start 
+		return (Date) this.taskDue.getValue();
 	}
 	/**
 	 * This is a simple getter method for retrieving the Date of the completed date and time
@@ -118,47 +189,47 @@ public class TaskEditPane extends Component implements Serializable, Observer {
 	 */
 	protected Date getTaskCompleted() {
 		//unimplemented
-		return null;
+		return (Date) this.taskCompleted.getValue();
 	}
 	/**
 	 * This is a simple getter method for retrieving the unique identifier of the task we are editing
 	 * @return JTextField of the task unique identifier
 	 */
 	protected JTextField getTaskID() {
-		//unimplemented
-		return null;
+		//make a jtextfield out of the string from data's ID
+		return new JTextField(this.data.getTaskID());
 	}
 	/**
 	 * This is a simple getter method for retrieving the title of the task we are editing
 	 * @return JTextField of the task title
 	 */
 	protected JTextField getTaskTitle() {
-		//unimplemented
-		return null;
+		//make a jtextfield out of the string from data's Title
+		return new JTextField(this.data.getTitle());
 	}
 	/**
 	 * This is a simple getter method for retrieving the category of the task we are editing
 	 * @return JComboBox (category specific) of the task category
 	 */
 	protected JComboBox<Category> getCategory() {
-		//unimplemented
-		return null;
+		//return our instance of a category object jcombobox
+		return this.taskCat;
 	}
 	/**
 	 * This is a simple getter method for retrieving the task details  of the task we are trying to edit
 	 * @return JTextArea of the task details test
 	 */
 	protected JTextArea getTaskDetails() {
-		//unimplemented
-		return null;
+		//return our instance of the task's details
+		return this.taskDetails;
 	}
 	/**
 	 * This is a simple getter method for retrieving the task completion status of the task we are trying to edit
 	 * @return JCheckBox of the task completion status test
 	 */
 	protected JCheckBox getComplete() {
-		//unimplemented
-		return null;
+		//return our instance of a jcheckbox
+		return this.complete;
 	}
 	/**
 	 * This is a simple setter method for setting the task start date and time
