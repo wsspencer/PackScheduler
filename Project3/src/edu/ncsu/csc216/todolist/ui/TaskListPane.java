@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JPanel;
 import javax.swing.JTable;
 
 import edu.ncsu.csc216.todolist.model.TaskList;
@@ -13,7 +14,7 @@ import edu.ncsu.csc216.todolist.model.TaskList;
  * @author Scott Spencer
  *
  */
-public class TaskListPane extends Component implements Serializable, Observer {
+public class TaskListPane extends JPanel implements Serializable, Observer {
 	/** This is our instance of the TaskTableModel that we are working with */
 	private TaskTableModel ttm;
 	/** This is our long constant for the serial version UID this class will utilize */
@@ -57,7 +58,8 @@ public class TaskListPane extends Component implements Serializable, Observer {
 	 * This is a void method used to clear the current selection in the GUI
 	 */
 	public void clearSelection() {
-		//unimplemented
+		tasks = null;
+		//won't need fillfields method like others since it's a list of non-editing objects
 	}
 	/**
 	 * This is a void method used to update the view with the given params
@@ -65,7 +67,7 @@ public class TaskListPane extends Component implements Serializable, Observer {
 	 * @param arg the Object we are updating the pane with
 	 */
 	public void update(Observable o, Object arg) {
-		//unimplemented
+		o.notifyObservers(arg);
 	}
 }
 

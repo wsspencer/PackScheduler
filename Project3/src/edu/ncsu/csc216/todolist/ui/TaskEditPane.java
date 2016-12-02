@@ -19,6 +19,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentListener;
 
 import edu.ncsu.csc216.todolist.model.Category;
 import edu.ncsu.csc216.todolist.model.CategoryList;
@@ -266,41 +267,46 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 * @return boolean stating whether or not the pane is in add mode
 	 */
 	protected boolean isAddMode() {
-		//unimplemented
-		return false;
+		//return add mode instance
+		return add;
 	}
 	/**
 	 * This is a boolean method for if the pane is in edit mode
 	 * @return boolean stating whether or not the pane is in edit mode
 	 */
 	protected boolean isEditMode() {
-		//unimplemented
-		return false;
+		//return edit mode instance
+		return edit;
 	}
 	/**
 	 * This is a void method for enabling the add mode 
 	 */
 	protected void enableAdd() {
-		//unimplemented
+		//set add mode instance to true
+		this.add = true;
 	}
 	/**
 	 * This is a void method for disabling the add mode
 	 */
 	protected void disableAdd() {
-		//unimplemented
+		//set add mode instance to false
+		this.add = false;
 	}
 	/**
 	 * This is a void method for enabling the edit mode
 	 * @param data the data of the task we want in edit mode
 	 */
 	protected void enableEdit(TaskData data) {
-		//unimplemented
+		//set the task data to the parameter and set edit mode instance to true
+		this.data = data;
+		this.edit = true;
 	}
 	/**
 	 * This is a void method for disabling the edit mode
 	 */
 	protected void disableEdit() {
-		//unimplemented
+		//set edit mode instance to false
+		this.edit = false;
 	}
 	/**
 	 * This is a boolean method for whether or not the field is not empty
@@ -308,41 +314,64 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 */
 	protected boolean fieldsNotEmpty() {
 		//unimplemented
-		return false;
+		return getTaskTitle().getDocument().getLength() != 0 && 
+				//all the other fields we are checking whether or not 
+				getTaskDetails().getDocument().getLength() != 0;
 	}
 	/**
 	 * This is a simple setter method for setting the task data to the parameter
 	 * @param data the TaskData we want to associate with the selected task
 	 */
 	protected void setTaskData(TaskData data) {
-		//unimplemented
+		this.data = data;
 	}
 	/**
 	 * This is a void method for adding field listener to the selected task
 	 * @param eL the event listener we want detecting events performed on the field
 	 */
 	protected void addFieldListener(EventListener eL) {
-		//unimplemented
+		//casting event listener to document listener..does documentlistener extend eventlistener?  these are just text oriented ones so you'll probably need other listeners for spinner and combobox and the like
+		getTaskTitle().getDocument().addDocumentListener((DocumentListener) eL);
+		//other events we want to listen to
+		getTaskDetails().getDocument().addDocumentListener((DocumentListener) eL);
 	}
 	/**
 	 * This is a void method for filling the text fields
 	 */
 	protected void fillFields() {
-		//unimplemented
+		if (null == data) {
+			//task id will be what taskID is (don't think it needs to be filled...)
+			taskTitle.setText("");
+			taskDetails.setText("");
+			taskTitle.setEditable(false);
+			taskDetails.setEditable(false);
+			
+			//do I ned to fill fields of category, start/due/comp dates, completion status, etc?  if you do, make sure the else statements use them too
+		}
+		else {
+			taskTitle.setText(data.getTitle());
+			taskDetails.setText(data.getDetails());
+		}
+		if (add || edit) {
+			taskTitle.setEditable(true);
+			taskDetails.setEditable(true);
+		}
 	}
 	/**
 	 * This is a void method for clearing the text fields
 	 */
 	protected void clearFields() {
-		//unimplemented
+		data = null;
+		fillFields();
 	}
 	/**
 	 * This is simple getter method for retrieving the fields of the selected task int TaskData form
 	 * @return TaskData representation of the fields of the selected task
 	 */
 	protected TaskData getFields() {
-		//unimplemented
-		return null;
+		//gather the information in the fields
+		return new TaskData(getTaskID().getText(), getTaskTitle().getText(), (Category) getCategory().getSelectedItem(), getTaskStart(), getTaskDue(), getTaskCompleted(),
+				 getComplete().isSelected(), getTaskDetails().getText());
 	}
 	/**
 	 * This is a void method for updating the pane with the parameterized observable and object
@@ -350,7 +379,7 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 * @param arg the object we want to update the pane with
 	 */
 	public void update(Observable o, Object arg) {
-		//unimplemented
+		o.notifyObservers(arg);
 	}
 }
 
