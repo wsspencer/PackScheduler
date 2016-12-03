@@ -29,10 +29,8 @@ public class ArrayList implements List, Serializable {
 	 * @param initSize integer representation of the number of elements in the list
 	 */
 	public ArrayList(int initSize) {
-		//unimplemented
-		//not sure if size is correct param
 		this.list = new Object[initSize];
-		this.size = initSize;
+		this.size = 0;
 	}
 
 	/**
@@ -96,18 +94,10 @@ public class ArrayList implements List, Serializable {
 	 */
 	@Override
 	public boolean add(Object o) {
-		//MUST occur before the check if index > size, so we know if we need to grow the array or not
-		//variable to count non-null elements in list
-		int counter = 0;
-		for (int i = 0; i < this.size(); i++) {
-			if (this.get(i) != null) {
-				counter++;
-			}
-		}
-		//ensures capacity doubles if size reaches the cap.
-		if (counter == this.size()) {
-			this.size = this.size + RESIZE; 
-			this.list = Arrays.copyOf(this.list, this.size());
+		//check if the number of elements in our arraylist (size) is equal to our array instance length.  Resizes if so.
+		//(Because we can't add to an array that is full)
+		if (this.size == this.list.length) {
+			this.list = Arrays.copyOf(this.list, this.list.length + RESIZE);
 		}	
 		if (o == null) {
 			return false;

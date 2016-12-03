@@ -40,7 +40,11 @@ public class Category extends Observable implements Serializable {
 	 * @param name String representation of the name we want our category to have
 	 */
 	public void setName(String name) {
+		if (name == null || name.equals("")) {
+			throw new IllegalArgumentException();
+		}
 		this.name = name;
+		this.notifyObservers();
 	}
 	/**
 	 * This is a simple getter method for retrieving our category's description variable
@@ -54,7 +58,11 @@ public class Category extends Observable implements Serializable {
 	 * @param desc the String value we want our description variable to have
 	 */
 	public void setDescription(String desc) {
+		if (desc == null || desc.equals("")) {
+			throw new IllegalArgumentException();
+		}
 		this.description = desc;
+		this.notifyObservers();
 	}
 	/**
 	 * This is a simple getter method for retrieving our category's unique identifier
@@ -69,6 +77,7 @@ public class Category extends Observable implements Serializable {
 	 */
 	private void setCategoryID(String id) {
 		this.categoryID = id;
+		this.notifyObservers();
 	}
 	/**
 	 * This is a boolean method for returning whether or not our category equals the parameterized object

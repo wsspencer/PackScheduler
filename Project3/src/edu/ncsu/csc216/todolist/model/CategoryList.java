@@ -26,9 +26,9 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 */
 	public CategoryList() { 
 		//initialize our instance of an arraylist
+		this.nextCategoryNum = 1;
 		this.list = new ArrayList();
 		this.name = "New List";
-		this.nextCategoryNum = 1;
 	}
 	/**
 	 * This is a simple getter method for retrieving the name of this category list
@@ -46,7 +46,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 */
 	public boolean addCategory(String name, String desc) {
 		//unimplemented
-		Category c = new Category(name, desc, Integer.toString(this.getNextCategoryNum()));
+		Category c = new Category(name, desc, "C" + (this.getNextCategoryNum()));
 		//increment nextCategoryNum since we used the current one as an identifier for "c"
 		this.incNextCategoryNum();
 		//add this instance as an observer to our "c" Category
@@ -159,12 +159,11 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 		//this will be what's printed to the GUI table
 		Object[][] panel = new Object[this.list.size()][3];
 		
-		if (this.list.get(0) != null) {
-			for (int i = 0; i < this.list.size(); i++) {
-				panel[i][0] = ((Category) this.list.get(i)).getCategoryID();
-				panel[i][1] = ((Category) this.list.get(i)).getName();
-				panel[i][2] = ((Category) this.list.get(i)).getDescription();
-			}
+		int i = 0;
+		while (this.list.get(i) != null) {
+			panel[i][0] = ((Category) this.list.get(i)).getCategoryID();
+			panel[i][1] = ((Category) this.list.get(i)).getName();
+			panel[i][2] = ((Category) this.list.get(i)).getDescription();
 		}
 		return panel;
 	} 

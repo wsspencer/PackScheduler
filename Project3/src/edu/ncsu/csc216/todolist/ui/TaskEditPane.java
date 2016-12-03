@@ -223,7 +223,7 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 		//make a jtextfield out of the string from data's Title
 		if (null == taskTitle) {
 			taskTitle = new JTextField(50);
-			taskTitle.setEditable(false);
+//			taskTitle.setEditable(false);
 			taskTitle.setVisible(true);
 			taskTitle.setHorizontalAlignment(SwingConstants.LEFT);
 		}
