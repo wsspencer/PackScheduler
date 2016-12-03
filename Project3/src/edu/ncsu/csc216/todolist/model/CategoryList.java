@@ -159,8 +159,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 		//this will be what's printed to the GUI table
 		Object[][] panel = new Object[this.list.size()][3];
 		
-		int i = 0;
-		while (this.list.get(i) != null) {
+		for (int i = 0; i < this.list.size(); i++) {
 			panel[i][0] = ((Category) this.list.get(i)).getCategoryID();
 			panel[i][1] = ((Category) this.list.get(i)).getName();
 			panel[i][2] = ((Category) this.list.get(i)).getDescription();

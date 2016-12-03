@@ -1,7 +1,6 @@
 package edu.ncsu.csc216.todolist.ui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
 import java.sql.Date;
