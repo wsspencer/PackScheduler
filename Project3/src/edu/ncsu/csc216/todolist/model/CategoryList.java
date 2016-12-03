@@ -52,7 +52,13 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 		//add this instance as an observer to our "c" Category
 		c.addObserver(this);
 		//add "c" to our instance of an arraylist and return whether or not it was successful to do so
-		return this.list.add(c);
+		this.list.add(c);
+		update(this, get2DArray());
+		if (this.list.contains(c)) {
+			System.out.println("Adding");
+			return true;
+		}
+		return false;
 	}
 	/**
 	 * This is a simple getter method for returning the category at the parameterized index
@@ -119,7 +125,10 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	public Category removeCategoryAt(int index) {
 		//call our instance of arraylist and return whether or not we were able to remove the parameterized
 		//index from the arraylist
-		return (Category) this.list.remove(index);
+		Category temp = (Category) this.list.get(index);
+		this.list.remove(index);
+		update(this, get2DArray());
+		return temp;
 	}
 	/**
 	 * This is a boolean method for removing a category with the given identifier
@@ -131,6 +140,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 		for (int i = 0; i < this.list.size(); i++) {
 			if (((Category) this.list.get(i)).getCategoryID().equals(iD)) {
 				this.list.remove(i);
+				update(this, get2DArray());
 				return true;
 			}
 		}

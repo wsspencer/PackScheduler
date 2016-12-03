@@ -50,6 +50,11 @@ public class LinkedList implements List, Serializable {
 	 * @return Node the Node we are inserting
 	 */
 	private Node insertAt(int index, Object data, Node n) {
+		if (index == 0 && n == null) {
+			n = new Node(data, null);
+			return n;
+		}
+		
 		//Use recursion to insert the parameterized data at the parameterized index.  Calling the next node to navigate recursively 
 		//we're basically counting the index down to 1. Every time we run the method recursively, simultaneously calling the method 
 		//with the next node in line, so theoretically we should be able to get to the desired index, because when we are at 1, the
@@ -99,9 +104,9 @@ public class LinkedList implements List, Serializable {
 	private Node remove(int index, Node n) {
 		//recursively find the right index and remove (I guess assuming we are passed the head to begin with from the public method?)
 		if (index == 0) {
-			//leapfrog that shit
-			Node temp = n.next;
-			n.next = temp.next;
+			//leapfrog it
+			Node temp = n;
+			n = n.next;
 			return temp;
 		}
 		else {

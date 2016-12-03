@@ -100,6 +100,7 @@ public class ArrayList implements List, Serializable {
 			this.list = Arrays.copyOf(this.list, this.list.length + RESIZE);
 		}	
 		if (o == null) {
+			//adding a null
 			return false;
 		}
 		int i = 0;
@@ -129,26 +130,20 @@ public class ArrayList implements List, Serializable {
 	public void add(int index, Object o) {
 		//MUST occur before the check if index > size, so we know if we need to grow the array or not
 		//variable to count non-null elements in list
-		int counter = 0;
-		for (int i = 0; i < this.size(); i++) {
-			if (this.get(i) != null) {
-				counter++;
-			}
-		}
 		//ensures capacity doubles if size reaches the cap.
-		if (counter == this.size()) {
-			this.size = this.size + RESIZE; 
-			this.list = Arrays.copyOf(this.list, this.size());
+		if (this.list.length == this.size()) {
+			this.list = Arrays.copyOf(this.list, this.size() + RESIZE);
 		}	
-		
-		if (index < 0 || index >= this.size()) {
+		//increment size HERE because we have grown the array if we needed to and need to use it in our looping
+		this.size++;
+		if (index < 0 || index >= this.list.length) {
 			throw new ArrayIndexOutOfBoundsException(index);
 		}
 		if (o == null) {
 			throw new NullPointerException();
 		}
 		
-		for (int i = this.size() - 1; i > index; i--) {
+		for (int i = this.size(); i > index; i--) {
 			list[i] = list[i - 1];
 		}
 		list[index] = o;

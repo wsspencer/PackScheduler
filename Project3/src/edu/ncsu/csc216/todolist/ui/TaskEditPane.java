@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.EventListener;
 import java.util.Observable;
 import java.util.Observer;
@@ -85,16 +85,11 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 		this.add = false;
 		this.edit = false;
 		
-		
+		this.taskCat = new JComboBox<Category>();
+
 		
 		//!!! move all these to their respective getters.  they require some processing in order for us to determine what they return
-		//initialize our instances of some of the spinners and fields the GUI will use
-		this.taskCat = new JComboBox<Category>();
-		//add the categories in our categorylist to our jcombobox
-		for (int i = 0; i < this.categories.size(); i++) {
-			taskCat.addItem(this.categories.getCategoryAt(i));
-		}
-			
+		//initialize our instances of some of the spinners and fields the GUI will use			
 		//date version of a JSpinner
 		SpinnerDateModel spinMod = new SpinnerDateModel();
 		SpinnerDateModel spinMod2 = new SpinnerDateModel();
@@ -192,7 +187,7 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 */
 	protected Date getTaskStart() {
 		//get value from the task start Jspinner
-		return (Date) this.taskStart.getValue();
+		return (Date) this.taskStart.getModel().getValue();
 	}
 	/**
 	 * This is a simple getter method for retrieving the Date of the due date and time
@@ -200,7 +195,7 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 */
 	protected Date getTaskDue() {
 		//get value from the task start 
-		return (Date) this.taskDue.getValue();
+		return (Date) this.taskDue.getModel().getValue();
 	}
 	/**
 	 * This is a simple getter method for retrieving the Date of the completed date and time
@@ -208,7 +203,7 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 */
 	protected Date getTaskCompleted() {
 		//unimplemented
-		return (Date) this.taskCompleted.getValue();
+		return (Date) this.taskCompleted.getModel().getValue();
 	}
 	/**
 	 * This is a simple getter method for retrieving the unique identifier of the task we are editing
@@ -237,7 +232,11 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 * @return JComboBox (category specific) of the task category
 	 */
 	protected JComboBox<Category> getCategory() {
-		//return our instance of a category object jcombobox
+		System.out.println(this.categories.size());
+		//add the categories in our categorylist o our jcombobox
+		for (int i = 0; i < this.categories.size(); i++) {
+			taskCat.addItem(this.categories.getCategoryAt(i));
+		}
 		return this.taskCat;
 	}
 	/**

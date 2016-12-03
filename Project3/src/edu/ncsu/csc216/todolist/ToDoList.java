@@ -140,24 +140,25 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		TaskList tL = new TaskList("New List", ("TL" + this.getNextTaskListNum()));
 		//add this instance of ToDoList as an observer to our new task list
 		tL.addObserver(this);
-		
-		//index where we will put "tL"
-		int index = this.tasks.length;
-		//Create new tasklist array of size one greater than our current instance
-		TaskList[] tempTasks = new TaskList[index + RESIZE];
-		//Make the temp array exactly like our current instance, with one empty index on the end
-		for (int i = 0; i < index; i++) {
-			tempTasks[i] = this.tasks[i];
+		//index we will put tL
+		int index = this.getNumTaskLists();
+		//check if array needs to be resized, does so if needed
+		if (this.tasks.length == this.getNumTaskLists()) {
+			TaskList[] tempTasks = new TaskList[this.tasks.length + RESIZE];
+			for (int i = 0; i < index; i++) {
+				tempTasks[i] = this.tasks[i];
+			}
+			this.tasks = tempTasks;
 		}
 		//since the size of tempTasks is one greater than our current instance, the length of our
 		//instance should be the same as the last index in tempTasks
-		tempTasks[index] = tL;
-		this.tasks = tempTasks;
+		this.tasks[index] = tL;
 		//Now that we have used the next task list number in line for the above task's ID number and successfully added the task list to our list,
 		//we will need to increment the next TaskListNum for later use
 		this.incNextTaskListNum();
 		//notify observers of this class to the change
 		this.notifyObservers();
+		this.update(this, tasks);
 		//return the index of the added tasklist
 		return index;
 	}
@@ -173,7 +174,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		
 		//remove this as an observer from the index we are removing 
 		this.tasks[listIndex].deleteObserver(this);
-		//notify the observers of todolist of the change
+		//notify the observers of todolist of the changes
 		
 		//make a new array of size one smaller than our current to replace our current instance
 		TaskList[] tempTasks = new TaskList[this.tasks.length - 1];
@@ -191,6 +192,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		
 		//notify observers of this class to the change
 		this.notifyObservers();
+		this.update(this, tasks);
 	}
 	/**
 	 * Saves the CategoryList and the array of TaskLists to the given file using 
