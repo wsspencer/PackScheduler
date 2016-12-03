@@ -35,6 +35,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 		this.list = new LinkedList();
 		//initialize nextTaskNum
 		this.nextTaskNum = 1;
+		this.setTaskListID("TL" + nextTaskNum);
 	}
 	/**
 	 * This is a simple getter method for the name of this task list
@@ -87,8 +88,9 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @return boolean stating whether or not the task was added to the list
 	 */
 	public boolean addTask(String title, String details, Date startDateTime, Date endDateTime, Category c) {
+		this.setTaskListID("TL" + getNextTaskNum());
 		//unimplemented
-		Task t = new Task(title, details, startDateTime, endDateTime, c, Integer.toString(this.getNextTaskNum()));
+		Task t = new Task(title, details, startDateTime, endDateTime, c, this.getTaskListID());
 		//increment next task num since we used the current one on "t"
 		this.incNextTaskNum();
 		//add this as observer to our "t" task
@@ -172,7 +174,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	public Object[][] get2DArray() {
 		//Returns an Object[][] array. Each row, i, contains a Category.
 		//this will be what's printed to the GUI table
-		Object[][] panel = new Object[this.list.size()][3];
+		Object[][] panel = new Object[this.list.size()][8];
 		for (int i = 0; i < this.list.size(); i++) {
 			panel[i][0] = ((Task) this.list.get(i)).getTaskID();
 			panel[i][1] = ((Task) this.list.get(i)).getTitle();

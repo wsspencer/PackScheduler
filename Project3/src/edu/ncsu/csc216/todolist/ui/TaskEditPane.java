@@ -2,6 +2,7 @@ package edu.ncsu.csc216.todolist.ui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.EventListener;
@@ -17,7 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentListener;
 
 import edu.ncsu.csc216.todolist.model.Category;
@@ -34,9 +37,6 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 * @author Scott Spencer
 	 *
 	 */
-	private class SpinnerDateModel {
-		
-	}
 	
 	//instance
 	/** This is our instance of the task data of the task we are working with */
@@ -95,12 +95,16 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 			taskCat.addItem(this.categories.getCategoryAt(i));
 		}
 			
+		//date version of a JSpinner
+		SpinnerDateModel spinMod = new SpinnerDateModel();
+		SpinnerDateModel spinMod2 = new SpinnerDateModel();
+		SpinnerDateModel spinMod3 = new SpinnerDateModel();
 		//create these from the nested class you added
-		this.taskStart = new JSpinner();
-		this.taskCompleted = new JSpinner();
-		this.taskDue = new JSpinner();
+		this.taskStart = new JSpinner(spinMod);
+		this.taskCompleted = new JSpinner(spinMod2);
+		this.taskDue = new JSpinner(spinMod3);
 		this.complete = new JCheckBox();
-		this.taskDetails = new JTextArea();
+		this.taskDetails = new JTextArea(5, 50);
 		init();
 	}
 	/**
@@ -257,21 +261,24 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 * @param start This is the date storing the time and date of the task's start time
 	 */
 	protected void setTaskStart(Date start) {
-		//unimplemented
+		//set the jspinner to a value
+		this.taskStart.setValue(start);
 	}
 	/**
 	 * This is a simple setter method for setting the task due date and time
 	 * @param due This is the date storing the time and date of the task's due time
 	 */
 	protected void setTaskDue(Date due) {
-		//unimplemented
+		//set the jspinner to a value
+		this.taskDue.setValue(due);
 	}
 	/**
 	 * This is a simple setter method for setting the task completed date and time
 	 * @param completed This is the date storing the time and date of the task's completed time
 	 */
 	protected void setTaskCompleted(Date completed) {
-		//unimplemented
+		//set the jspinner to a value
+		this.taskCompleted.setValue(completed);
 	}
 	/**
 	 * This is a boolean method for if the pane is in add mode
@@ -344,6 +351,11 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 		//casting event listener to document listener..does documentlistener extend eventlistener?  these are just text oriented ones so you'll probably need other listeners for spinner and combobox and the like
 		getTaskTitle().getDocument().addDocumentListener((DocumentListener) eL);
 		//other events we want to listen to
+		getTaskStartSpinner().addChangeListener((ChangeListener) eL);
+		getTaskCompletedSpinner().addChangeListener((ChangeListener) eL);
+		getTaskDueSpinner().addChangeListener((ChangeListener) eL);
+		getComplete().addChangeListener((ChangeListener) eL);
+		getCategory().addActionListener((ActionListener) eL);
 		getTaskDetails().getDocument().addDocumentListener((DocumentListener) eL);
 	}
 	/**

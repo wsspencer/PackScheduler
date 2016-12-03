@@ -86,7 +86,7 @@ public class TaskListPane extends JScrollPane implements Serializable, Observer 
 	public void update(Observable o, Object arg) {
 		if (o instanceof TaskList) {
 			TaskList tL = (TaskList)o;
-			//If there is a different number of rows, create a show new CategoryTableModel.
+			//If there is a different number of rows, create a show new TaskTableModel.
 			if (tL.size() != ttm.getRowCount()) {
 				 ttm = new TaskTableModel(tL.get2DArray());
 				 table.setModel(ttm);
