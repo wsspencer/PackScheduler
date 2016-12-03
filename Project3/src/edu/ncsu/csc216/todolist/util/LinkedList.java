@@ -174,7 +174,7 @@ public class LinkedList implements List, Serializable {
 		// call the insertAt private method to use recursion to add a method to the end of the list (index of the size
 		// of the list - 1) and return false if it returns false, true if it was successful and returns the node it added 
 		// to the list.
-		if (insertAt(this.size() - 1, o, this.head) == null) {
+		if (insertAt(0, o, this.head) == null) {
 			return false;
 		}
 		else {

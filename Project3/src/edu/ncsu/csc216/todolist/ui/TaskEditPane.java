@@ -82,6 +82,8 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 		super();
 		this.data = data;
 		this.categories = list;
+		//add this as an observer to the categories value so we are updated when the category list changes.
+		categories.addObserver(this);
 		this.add = false;
 		this.edit = false;
 		

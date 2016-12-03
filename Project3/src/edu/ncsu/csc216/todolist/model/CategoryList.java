@@ -53,9 +53,11 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 		c.addObserver(this);
 		//add "c" to our instance of an arraylist and return whether or not it was successful to do so
 		this.list.add(c);
-		update(this, get2DArray());
+		
 		if (this.list.contains(c)) {
-			System.out.println("Adding");
+			//notify the observers that the list has changed
+			this.setChanged();
+			this.notifyObservers();
 			return true;
 		}
 		return false;
@@ -127,7 +129,10 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 		//index from the arraylist
 		Category temp = (Category) this.list.get(index);
 		this.list.remove(index);
-		update(this, get2DArray());
+		//notify the observers of the change
+		this.setChanged();
+		this.notifyObservers();
+		
 		return temp;
 	}
 	/**
@@ -140,7 +145,9 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 		for (int i = 0; i < this.list.size(); i++) {
 			if (((Category) this.list.get(i)).getCategoryID().equals(iD)) {
 				this.list.remove(i);
-				update(this, get2DArray());
+				//notify the observers about it
+				this.setChanged();
+				this.notifyObservers();
 				return true;
 			}
 		}

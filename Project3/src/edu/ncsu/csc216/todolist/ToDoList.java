@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
+import edu.ncsu.csc216.todolist.model.Category;
 import edu.ncsu.csc216.todolist.model.CategoryList;
+import edu.ncsu.csc216.todolist.model.Task;
 import edu.ncsu.csc216.todolist.model.TaskList;
 import edu.ncsu.csc216.todolist.util.ArrayList;
 
@@ -58,6 +60,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		
 		//set the changed status of this instance to false
 		this.changed = false;
+		this.notifyObservers();
 	}
 	/**
 	 * This is a method for checking if the to-do list has changed
@@ -72,6 +75,8 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 */
 	public void setChanged(boolean changed) {
 		this.changed = changed;
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * This is a method for retrieving the filename we are using for this instance of data
@@ -86,6 +91,8 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 */
 	public void setFilename(String filename) {
 		this.filename = filename;
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * This is a method used to retrieve the number of the "next" task list (for ID #s.  Initiated at 1, then increments)
@@ -98,7 +105,9 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * This is a void method for incrementing the index number of the "next" task list so that we may keep adding new tasks
 	 */
 	private void incNextTaskListNum() {
-		this.nextTaskListNum++;
+		this.nextTaskListNum = this.nextTaskListNum + 1;
+		setChanged();
+		notifyObservers();
 	}
 	/**
 	 * This is an integer method for retrieving the number of task lists we are storing
@@ -136,14 +145,16 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @return integer index of the added task list
 	 */
 	public int addTaskList() {
+		//increment next task list number so our task list will have a unique id
+		this.incNextTaskListNum();
 		//create a task list to add with New List for name and "TL#" whatever the next tasklist number is and add this as an observer to it
 		TaskList tL = new TaskList("New List", ("TL" + this.getNextTaskListNum()));
 		//add this instance of ToDoList as an observer to our new task list
 		tL.addObserver(this);
 		//index we will put tL
-		int index = this.getNumTaskLists();
+		int index = getNumTaskLists();
 		//check if array needs to be resized, does so if needed
-		if (this.tasks.length == this.getNumTaskLists()) {
+		if (this.tasks.length == getNumTaskLists()) {
 			TaskList[] tempTasks = new TaskList[this.tasks.length + RESIZE];
 			for (int i = 0; i < index; i++) {
 				tempTasks[i] = this.tasks[i];
@@ -153,12 +164,10 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		//since the size of tempTasks is one greater than our current instance, the length of our
 		//instance should be the same as the last index in tempTasks
 		this.tasks[index] = tL;
-		//Now that we have used the next task list number in line for the above task's ID number and successfully added the task list to our list,
-		//we will need to increment the next TaskListNum for later use
-		this.incNextTaskListNum();
 		//notify observers of this class to the change
-		this.notifyObservers();
-		this.update(this, tasks);
+		setChanged();
+		notifyObservers();
+		update(this, tL);
 		//return the index of the added tasklist
 		return index;
 	}
@@ -191,6 +200,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		this.tasks = tempTasks;
 		
 		//notify observers of this class to the change
+		setChanged();
 		this.notifyObservers();
 		this.update(this, tasks);
 	}
@@ -269,8 +279,11 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// Is automatically called? Do I implement that or is it implicitly part of the code?
-		o.notifyObservers(arg);
-		setChanged(true);
+		if (o instanceof TaskList || o.equals(categories)) {
+			setChanged();
+			o.notifyObservers(arg);
+			setChanged(true);
+		}
 	}
 }
 

@@ -100,9 +100,13 @@ class CategoryListPane extends JScrollPane implements Observer {
 	 */
 	public void update(Observable o, Object arg) {
 		if (o instanceof CategoryList) {
+			System.out.println("is instance of categorylist");
+			
 			CategoryList cl = (CategoryList)o;
 			//If there is a different number of rows, create a show new CategoryTableModel.
 			if (cl.size() != categoryTableModel.getRowCount()) {
+				System.out.println("different number of rows");
+				
 				 categoryTableModel = new CategoryTableModel(cl.get2DArray());
 				 table.setModel(categoryTableModel);
 			} else {
