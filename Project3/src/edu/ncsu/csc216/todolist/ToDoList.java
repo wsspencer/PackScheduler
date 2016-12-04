@@ -9,9 +9,7 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
-import edu.ncsu.csc216.todolist.model.Category;
 import edu.ncsu.csc216.todolist.model.CategoryList;
-import edu.ncsu.csc216.todolist.model.Task;
 import edu.ncsu.csc216.todolist.model.TaskList;
 import edu.ncsu.csc216.todolist.util.ArrayList;
 

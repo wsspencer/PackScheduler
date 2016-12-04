@@ -4,7 +4,6 @@ import java.io.Serializable;
 /**
  * This is a class for defining the operations and characteristics of our custom Linked List
  * @author Scott Spencer
- * @param E the abstract object that can be any object we want our linked list to contain
  *
  */
 public class LinkedList implements List, Serializable {
@@ -159,9 +158,8 @@ public class LinkedList implements List, Serializable {
 		if (this.size() == 0) {
 			return true;
 		}
-		else {
-			return false;
-		}
+		return false;
+	
 	}
 	/**
 	 * This is a boolean method for checking if the list contains a certain object

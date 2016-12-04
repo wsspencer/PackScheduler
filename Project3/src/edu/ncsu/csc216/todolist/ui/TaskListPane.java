@@ -52,7 +52,7 @@ public class TaskListPane extends JScrollPane implements Serializable, Observer 
 	 * @return JTable of the table we are working in
 	 */
 	public JTable getTable() {
-		return this.table;
+		return this.table; 
 	}
 	/**
 	 * This is a void method for initializing our view of the pane
@@ -75,7 +75,7 @@ public class TaskListPane extends JScrollPane implements Serializable, Observer 
 	 * This is a void method used to clear the current selection in the GUI
 	 */
 	public void clearSelection() {
-		table.clearSelection();;
+		table.clearSelection();
 		//won't need fillfields method like others since it's a list of non-editing objects
 	}
 	/**

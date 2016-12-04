@@ -6,7 +6,6 @@ import java.util.Arrays;
 /**
  * This is a class used to define the methods and characteristics of a custom ArrayList
  * @author Scott Spencer
- * @param E abstract object used to define what this will be an arraylist of
  *
  */
 public class ArrayList implements List, Serializable {
@@ -23,7 +22,7 @@ public class ArrayList implements List, Serializable {
 	 */
 	public ArrayList() {
 		this(RESIZE);
-	}
+	} 
 	/**
 	 * This is a constructor method used to create a new instance of an ArrayList of a specific size
 	 * @param initSize integer representation of the number of elements in the list
@@ -163,7 +162,7 @@ public class ArrayList implements List, Serializable {
 		//remove the value from that index
 		list[index] = null;
 		//Because if you're just removing the last element of the list there's no reason to move anything (must be -2 since we are getting i+1 as well)
-		if (index != this.size() -1) {
+		if (index != this.size() - 1) {
 			for (int i = index; i <= this.size() - 2; i++) {
 				list[i] = list[i + 1];
 			}
