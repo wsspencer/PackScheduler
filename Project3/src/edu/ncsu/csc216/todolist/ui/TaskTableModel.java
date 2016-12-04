@@ -100,7 +100,7 @@ public class TaskTableModel extends AbstractTableModel implements Serializable, 
 	/**
 	 * This a method for getting the column in the table's class
 	 * @param arg0 the column argument
-	 * @return Class<?> the class of the column
+	 * @return Class the class of the column
 	 */
 	@Override
 	public Class<?> getColumnClass(int arg0) {
