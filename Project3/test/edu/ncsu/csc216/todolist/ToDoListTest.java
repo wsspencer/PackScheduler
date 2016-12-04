@@ -32,11 +32,11 @@ public class ToDoListTest {
 		
 		//test that the array is working and getters are working
 		assertEquals(tester.getTaskList(0).getName(), "New List");
-		assertEquals(tester.getTaskList(0).getTaskListID(), "TL1");
+		assertEquals(tester.getTaskList(0).getTaskListID(), "TL3");
 		
 		//test nexttasklistnum functionality (make sure it's not recycling numbers, etc)
 		tester.addTaskList();
-		assertEquals(tester.getTaskList(1).getTaskListID(), "TL1");
+		assertEquals(tester.getTaskList(1).getTaskListID(), "TL4");
 		assertEquals(tester.getTaskList(0).getTaskListID(), "TL3");
 		
 		
@@ -53,13 +53,13 @@ public class ToDoListTest {
 			tester.removeTaskList(-1);
 			fail();
 		} catch (IndexOutOfBoundsException e) {
-			assertEquals(tester.getNumTaskLists(), 2);
+			assertEquals(tester.getNumTaskLists(), 3);
 		}
 		try {
 			tester.removeTaskList(5);		
 			fail();
 		} catch (IndexOutOfBoundsException e) {
-			assertEquals(tester.getNumTaskLists(), 2);
+			assertEquals(tester.getNumTaskLists(), 3);
 		}
 		
 		
