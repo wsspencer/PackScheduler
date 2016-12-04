@@ -22,7 +22,7 @@ public class LinkedList implements List, Serializable {
 		protected Object value;
 		/**
 		 * This is the constructor method used for creating a new node with the given parameters
-		 * @param data the object we want stored in this node of the list
+		 * @param data the object we want stored in this node of the list 
 		 * @param next the Node we want next in line of the list
 		 */
 		public Node(Object data, Node next) {
@@ -126,7 +126,7 @@ public class LinkedList implements List, Serializable {
 			return returnNode; 
 		}
 		else {
-			remove(index--, n.next);
+			remove(--index, n.next);
 		}
 		return null;
 	}

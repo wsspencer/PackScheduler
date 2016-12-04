@@ -38,7 +38,11 @@ public class TaskListTest {
 		tester.addTask("title4", "details", null, null, testCat);
 		tester.addTask("title5", "details", null, null, testCat);
 		assertEquals(tester.size(), 5);
+		assertEquals(tester.getTaskAt(0).getTitle(), "title1");
+		assertEquals(tester.getTaskAt(1).getTitle(), "title2");
+		assertEquals(tester.getTaskAt(2).getTitle(), "title3");
 		assertEquals(tester.getTaskAt(3).getTitle(), "title4");
+		assertEquals(tester.getTaskAt(4).getTitle(), "title5");
 		tester.removeTaskAt(3);
 		assertEquals(tester.getTaskAt(3).getTitle(), "title5");
 	}

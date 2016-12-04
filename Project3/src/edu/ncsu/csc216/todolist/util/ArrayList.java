@@ -158,18 +158,17 @@ public class ArrayList implements List, Serializable {
 		if (index < 0 || index >= this.size()) {
 			throw new ArrayIndexOutOfBoundsException(index);
 		}
-
-		//Because if you're just removing the last element of the list there's no reason to move anything
+		//returning what we'll be removing, so set what we'll be removing to its own variable
+		Object temp = list[index];
+		//remove the value from that index
+		list[index] = null;
+		//Because if you're just removing the last element of the list there's no reason to move anything (must be -2 since we are getting i+1 as well)
 		if (index != this.size() -1) {
 			for (int i = index; i <= this.size() - 2; i++) {
 				list[i] = list[i + 1];
 			}
 		}
-		//removes that last element
-		list[this.size() - 1] = null;
-		
-		Object temp = list[index];
-
+		this.size--;
 		return temp;
 		
 	}

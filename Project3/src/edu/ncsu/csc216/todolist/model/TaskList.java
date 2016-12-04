@@ -34,7 +34,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 		//initialize our instance of a linked list
 		this.list = new LinkedList();
 		//initialize nextTaskNum
-		this.nextTaskNum = 1;		
+		this.nextTaskNum = 1; 		
 	}
 	/**
 	 * This is a simple getter method for the name of this task list
