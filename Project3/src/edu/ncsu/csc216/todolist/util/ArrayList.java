@@ -157,7 +157,7 @@ public class ArrayList implements List, Serializable {
 		if (index < 0 || index >= this.size()) {
 			throw new ArrayIndexOutOfBoundsException(index);
 		}
-		//returning what we'll be removing, so set what we'll be removing to its own variable
+		//returning what we'll be removing, so set what we'll be removing to its own variable 
 		Object temp = list[index];
 		//remove the value from that index
 		list[index] = null;
@@ -188,10 +188,10 @@ public class ArrayList implements List, Serializable {
 	/**
 	 * I don't even know if this is right...
 	 * @param tasks some tasks
-	 * @return E[] an array of objects
+	 * @return Object[] an array of objects
 	 */
 	public Object[] toArray(Object[] tasks) {
 		// TODO Auto-generated method stub
-		return this.list;
+		return tasks;
 	}
 }

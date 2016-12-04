@@ -242,8 +242,8 @@ public class ToDoList extends Observable implements Serializable, Observer {
 			ArrayList temp = new ArrayList(); 
 			Object tl = in.readObject();
 			while (tl instanceof TaskList) {
-				TaskList l = (TaskList)tl;
-				l.addObserver(this);
+				TaskList l = (TaskList)tl; 
+				l.addObserver(this); 
 				temp.add(l);
 				tl = in.readObject();
 			}

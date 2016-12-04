@@ -27,7 +27,7 @@ public class ToDoListTest {
 		//test change and its setter
 		tester.setChanged(false);
 		assertEquals(tester.isChanged(), false);
-		tester.setChanged(true);
+		tester.setChanged(true); 
 		assertEquals(tester.isChanged(), true);
 		
 		//test that the array is working and getters are working
@@ -41,9 +41,10 @@ public class ToDoListTest {
 		
 		
 		//test file processing functionality
-		tester.setFilename("changeName.txt"); 
-		assertEquals(tester.getFilename(), "changeName.txt");
+		tester.setFilename("test-files/changeName.txt"); 
+		assertEquals(tester.getFilename(), "test-files/changeName.txt");
 		tester.openDataFile("test-files/testFile.txt");
+
 		tester.saveDataFile("test-files/saveFile.txt");
 		//make sure update doesn't throw anything
 		tester.update(tester, tester.getCategoryList());
@@ -54,13 +55,13 @@ public class ToDoListTest {
 			tester.removeTaskList(-1);
 			fail();
 		} catch (IndexOutOfBoundsException e) {
-			assertEquals(tester.getNumTaskLists(), 3);
+			assertEquals(tester.getNumTaskLists(), 1);
 		}
 		try {
 			tester.removeTaskList(5);		
 			fail();
 		} catch (IndexOutOfBoundsException e) {
-			assertEquals(tester.getNumTaskLists(), 3);
+			assertEquals(tester.getNumTaskLists(), 1);
 		}
 		
 		
