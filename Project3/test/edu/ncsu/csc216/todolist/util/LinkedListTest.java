@@ -30,8 +30,8 @@ public class LinkedListTest {
 		ll.add(tsk2);
 		ll.add(tsk3);
 		assertEquals(ll.size(), 3);
-		assertEquals(ll.indexOf(tsk2), 2);
-		assertEquals(ll.indexOf(tsk3), 4);
+		assertEquals(ll.indexOf(tsk2), 1);
+		assertEquals(ll.indexOf(tsk3), 2);
 		ll.add(0, tsk4);
 		ll.add(0, tsk5);
 		ll.add(0, tsk6);
@@ -40,13 +40,13 @@ public class LinkedListTest {
 		 
 		Task tsk7 = new Task("Task7", "deets7", null, null, testCat, "T7");
 		ll.add(3, tsk7);
-		assertEquals(6, ll.indexOf(tsk7));
+		assertEquals(3, ll.indexOf(tsk7));
 		
 		Task tsk8 = new Task("Task 8", "deets8", null, null, testCat, "T8");
 		assertEquals(ll.indexOf(tsk8), -1);
 		
 		ll.remove(3);
-		assertEquals(ll.indexOf(tsk1), 6);
+		assertEquals(ll.indexOf(tsk1), 3);
 	}
 
 }

@@ -95,15 +95,14 @@ public class LinkedList extends Observable implements List, Serializable {
 	private int indexOf(Object data, Node n, int index) {
 		//find the index of the info passed recursively (assuming the public method will pass us the head and index of 0 for our start
 		if (n == null) {
-			System.out.println("do you even go here?");
-			return - (this.size() + 1);
+			return -(this.size() + 1);
 		}
 		if (n.value == data) {
 			return index;
 		}
 		//call the method for recursion, with the same data we're looking for and the next node in list and incremented index 
 		//(incrementing index so we can return the correct index when we find the appropriate data in the list node)
-		return 1 + indexOf(data, n.next, ++index);
+		return 1 + indexOf(data, n.next, index++);
 
 	}
 	/**
