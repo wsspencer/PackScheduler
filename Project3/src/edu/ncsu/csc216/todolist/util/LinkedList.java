@@ -1,12 +1,13 @@
 package edu.ncsu.csc216.todolist.util;
 
 import java.io.Serializable;
+import java.util.Observable;
 /**
  * This is a class for defining the operations and characteristics of our custom Linked List
  * @author Scott Spencer
  *
  */
-public class LinkedList implements List, Serializable {
+public class LinkedList extends Observable implements List, Serializable {
 	/**
 	 * This is a nested class for defining the characteristics of a Node to be used in this linked list
 	 * @author Scott Spencer
@@ -53,9 +54,15 @@ public class LinkedList implements List, Serializable {
 		if (index < 0) {
 			return null;
 		}
+		//add to front of empty list
 		if (index == 0 && n == null) {
 			n = new Node(data, null);
 			return n;
+		}
+		//add to front of non-empty list
+		if (index == 0 && n != null) {
+			this.head = new Node(data, n);
+			return this.head;
 		}
 		
 		//Use recursion to insert the parameterized data at the parameterized index.  Calling the next node to navigate recursively 
@@ -103,9 +110,6 @@ public class LinkedList implements List, Serializable {
 	private Node remove(int index, Node n) {
 		//recursively find the right index and remove (I guess assuming we are passed the head to begin with from the public method?)
 	
-		
-		//NEEDS FIXING???
-		
 		
 		//save the node for returning what's been removed
 		Node returnNode = n;

@@ -59,6 +59,8 @@ public class Task extends Observable implements Serializable {
 	 */
 	public void setTitle(String title) {
 		this.title = title;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	/**
 	 * This is a simple getter method from retrieving the details of the task
@@ -73,6 +75,8 @@ public class Task extends Observable implements Serializable {
 	 */
 	public void setDetails(String details) {
 		this.details = details;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	/**
 	 * This is a simple getter method for retrieving the start date and time of 
@@ -89,6 +93,8 @@ public class Task extends Observable implements Serializable {
 	 */
 	public void setStartDateTime(Date startDate) {
 		this.startDateTime = startDate;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	/**
 	 * This is a simple getter method for retrieving the due date and time of this task
@@ -104,6 +110,8 @@ public class Task extends Observable implements Serializable {
 	 */
 	public void setDueDateTime(Date dueDate) {
 		this.dueDateTime = dueDate;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	/**
 	 * This is a simple getter method for retrieving the completed date and time of this task
@@ -119,6 +127,8 @@ public class Task extends Observable implements Serializable {
 	 */
 	public void setCompletedDateTime(Date compDate) {
 		this.completedDateTime = compDate;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	/**
 	 * This is a boolean method for telling if the task is completed
@@ -133,6 +143,8 @@ public class Task extends Observable implements Serializable {
 	 */
 	public void setCompleted(boolean compStatus) {
 		this.completed = compStatus;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	/**
 	 * This is a simple setter method for setting the category to the parameterized one
@@ -140,6 +152,8 @@ public class Task extends Observable implements Serializable {
 	 */
 	public void setCategory(Category c) {
 		this.category = c;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	/**
 	 * This is a simple getter method for retrieving this task's category
@@ -162,6 +176,8 @@ public class Task extends Observable implements Serializable {
 	 */
 	private void setTaskID(String iD) {
 		this.taskID = iD;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	/**
 	 * This is a boolean method for returning if this task equals the parameter

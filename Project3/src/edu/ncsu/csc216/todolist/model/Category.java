@@ -36,7 +36,7 @@ public class Category extends Observable implements Serializable {
 		return this.name;
 	}
 	/**
-	 * This is a simple setter methoe for putting a value to our category's name variable
+	 * This is a simple setter method for putting a value to our category's name variable
 	 * @param name String representation of the name we want our category to have
 	 */
 	public void setName(String name) {
@@ -44,6 +44,7 @@ public class Category extends Observable implements Serializable {
 			throw new IllegalArgumentException();
 		}
 		this.name = name;
+		this.setChanged();
 		this.notifyObservers();
 	}
 	/**
@@ -62,6 +63,7 @@ public class Category extends Observable implements Serializable {
 			throw new IllegalArgumentException();
 		}
 		this.description = desc;
+		this.setChanged();
 		this.notifyObservers();
 	}
 	/**
@@ -77,6 +79,7 @@ public class Category extends Observable implements Serializable {
 	 */
 	private void setCategoryID(String id) {
 		this.categoryID = id;
+		this.setChanged();
 		this.notifyObservers();
 	}
 	/**

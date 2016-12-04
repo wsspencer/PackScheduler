@@ -58,6 +58,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		
 		//set the changed status of this instance to false
 		this.changed = false;
+		this.setChanged();
 		this.notifyObservers();
 	}
 	/**
@@ -65,6 +66,8 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @return boolean stating whether or not the list has changed
 	 */
 	public boolean isChanged() {
+		this.setChanged();
+		this.notifyObservers();
 		return this.changed;
 	}
 	/**
@@ -136,6 +139,8 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 */
 	public CategoryList getCategoryList() {
 		this.categories.addObserver(this);
+		this.setChanged();
+		this.notifyObservers();
 		return this.categories;
 	}
 	/**
@@ -163,8 +168,8 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		//instance should be the same as the last index in tempTasks
 		this.tasks[index] = tL;
 		//notify observers of this class to the change
-		setChanged();
-		notifyObservers();
+		this.setChanged();
+		this.notifyObservers();
 		update(this, tL);
 		//return the index of the added tasklist
 		return index;
@@ -178,10 +183,6 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		if (listIndex < 0 || listIndex >= this.tasks.length) {
 			throw new IndexOutOfBoundsException();
 		}
-		
-		//remove this as an observer from the index we are removing 
-		this.tasks[listIndex].deleteObserver(this);
-		//notify the observers of todolist of the changes
 		
 		//make a new array of size one smaller than our current to replace our current instance
 		TaskList[] tempTasks = new TaskList[this.tasks.length - 1];
@@ -198,7 +199,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		this.tasks = tempTasks;
 		
 		//notify observers of this class to the change
-		setChanged();
+		this.setChanged();
 		this.notifyObservers();
 		this.update(this, tasks);
 	}
@@ -277,11 +278,11 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// Is automatically called? Do I implement that or is it implicitly part of the code?
-		if (o instanceof TaskList || o.equals(categories)) {
-			setChanged();
+	//	if (o instanceof TaskList || o.equals(categories)) {
+			this.setChanged();
 			o.notifyObservers(arg);
 			setChanged(true);
-		}
+	//	}
 	}
 }
 

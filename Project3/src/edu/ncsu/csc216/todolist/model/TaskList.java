@@ -33,6 +33,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 		setTaskListID(listId);
 		//initialize our instance of a linked list
 		this.list = new LinkedList();
+		this.list.addObserver(this);
 		//initialize nextTaskNum
 		this.nextTaskNum = 1; 		
 	}
@@ -49,8 +50,8 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 */
 	public void setName(String newName) {
 		this.name = newName;
-		setChanged();
-		notifyObservers();
+		this.setChanged();
+		this.notifyObservers();
 	}
 	/**
 	 * This is a simple getter method for task list unique id
@@ -65,8 +66,8 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 */
 	private void setTaskListID(String newId) {
 		this.taskListID = newId;
-		setChanged();
-		notifyObservers();
+		this.setChanged();
+		this.notifyObservers();
 	} 
 	/**
 	 * This is a simple getter method for retrieving the next task number in line
@@ -80,8 +81,8 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 */
 	private void incNextTaskNum() {
 		this.nextTaskNum++;
-		setChanged();
-		notifyObservers();
+		this.setChanged();
+		this.notifyObservers();
 	}
 	/**
 	 * This is a boolean method for adding a task to the list
@@ -104,8 +105,8 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 		this.list.add(t);
 		if (this.list.contains(t)) {
 			//tell the observers it was added
-			setChanged();
-			notifyObservers();
+			this.setChanged();
+			this.notifyObservers();
 			return true;
 		}
 		return false;
@@ -162,8 +163,8 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 		//call the build in remove method in our linkedlist instance
 		Task ret = (Task) this.list.get(taskNum);
 		this.list.remove(taskNum);
-		setChanged();
-		notifyObservers();
+		this.setChanged();
+		this.notifyObservers();
 		return ret;
 	}
 	/**
@@ -176,9 +177,10 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 		//see if it equals our parameter
 		for (int i = 0; i < this.list.size(); i++) {
 			if (((Task) this.list.get(i)).getTitle().equals(taskTitle)) {
+
 				this.list.remove(i);
-				setChanged();
-				notifyObservers();
+				this.setChanged();
+				this.notifyObservers();
 				return true;
 			}
 		}
@@ -211,7 +213,6 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @param arg the object we are updating the list with
 	 */
 	public void update(Observable o, Object arg) {
-		setChanged();
 		o.notifyObservers(arg);
 	}
 }

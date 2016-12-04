@@ -104,8 +104,11 @@ public class TaskTableModel extends AbstractTableModel implements Serializable, 
 	 */
 	@Override
 	public Class<?> getColumnClass(int arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		// Have to replace null with something since abstracttablemodel makes me use these renderers with their 
+		//fire cell methods
+		//(just returning string and ignoring the param because it should be a table of all strings right?)
+		//^ maybe not...wtf is it accepting for Date.util for that matter....wtf
+		return String.class;
 	}
 	/**
 	 * This a method for getting the name of a column
@@ -114,8 +117,8 @@ public class TaskTableModel extends AbstractTableModel implements Serializable, 
 	 */
 	@Override
 	public String getColumnName(int arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		// get the column name we are using at the parameterized index
+		return this.colNames[arg0];
 	}
 	/**
 	 * This a method for telling whether or not a cell is editable
@@ -125,7 +128,8 @@ public class TaskTableModel extends AbstractTableModel implements Serializable, 
 	 */
 	@Override
 	public boolean isCellEditable(int arg0, int arg1) {
-		// TODO Auto-generated method stub
+		//check the cell at the given indexes to see if it's editable
+		//(just returning false for now because I don't know what should and shouldn't be editable)
 		return false;
 	}
 	/**
@@ -134,8 +138,8 @@ public class TaskTableModel extends AbstractTableModel implements Serializable, 
 	 */
 	@Override
 	public void removeTableModelListener(TableModelListener arg0) {
-		// TODO Auto-generated method stub
-		
+		// Just remove the listener in the parameter from this instance
+		//this.removeTableModelListener(arg0);
 	}
 	
 	

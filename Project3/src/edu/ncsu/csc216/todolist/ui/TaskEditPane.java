@@ -30,7 +30,6 @@ import edu.ncsu.csc216.todolist.model.CategoryList;
  * @author Scott Spencer
  *
  */
-//EXTEND COMPONENT OR JPANEL....FIGURE OUT WHICH YOU SHOULD USE AND WHICH WORKS BEST
 public class TaskEditPane extends JPanel implements Serializable, Observer {
 	/**
 	 * This is a nested helper class for our jspinners to have a model of how they should look and behave (and format the date)
@@ -264,6 +263,7 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	protected void setTaskStart(Date start) {
 		//set the jspinner to a value
 		this.taskStart.setValue(start);
+		this.fillFields();
 	}
 	/**
 	 * This is a simple setter method for setting the task due date and time
@@ -272,6 +272,7 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	protected void setTaskDue(Date due) {
 		//set the jspinner to a value
 		this.taskDue.setValue(due);
+		this.fillFields();
 	}
 	/**
 	 * This is a simple setter method for setting the task completed date and time
@@ -280,6 +281,7 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	protected void setTaskCompleted(Date completed) {
 		//set the jspinner to a value
 		this.taskCompleted.setValue(completed);
+		this.fillFields();
 	}
 	/**
 	 * This is a boolean method for if the pane is in add mode
@@ -343,6 +345,7 @@ public class TaskEditPane extends JPanel implements Serializable, Observer {
 	 */
 	protected void setTaskData(TaskData data) {
 		this.data = data;
+		this.fillFields();
 	}
 	/**
 	 * This is a void method for adding field listener to the selected task
