@@ -15,6 +15,7 @@ public class CategoryListTest {
 	@Test 
 	public void test() {
 		CategoryList tester = new CategoryList();
+		assertEquals(tester.getName(), "New List");
 		tester.addCategory("cat1", "description");
 		assertEquals(tester.size(), 1);
 		assertEquals(tester.getCategoryAt(0).getName(), "cat1");
@@ -40,8 +41,14 @@ public class CategoryListTest {
 		assertEquals(tester.getCategoryAt(2).getName(), "cat6");
 		assertEquals(tester.getCategoryAt(2).getCategoryID(), "C6");
 		
+		assertEquals(tester.get2DArray()[1][0], "C4");
+		assertEquals(tester.get2DArray()[1][1], "cat4");
+		assertEquals(tester.get2DArray()[1][2], "descriptio");
+		
 		assertFalse(tester.isEmpty());
 		assertEquals(1, tester.indexOf("C4"));
 		assertEquals(2, tester.indexOfName("cat6"));
+		
+		tester.update(tester, tester.get2DArray());
 	}
 }
