@@ -91,6 +91,9 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @param filename the string filename we want to set our variable to
 	 */
 	public void setFilename(String filename) {
+		if (filename == null) {
+			throw new IllegalArgumentException();
+		}
 		this.filename = filename;
 		setChanged();
 		notifyObservers();
@@ -130,6 +133,9 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @return TaskList the task list stored at the parameterized index
 	 */
 	public TaskList getTaskList(int listIndex) {
+		if (this.getNumTaskLists() == listIndex) {
+			throw new IndexOutOfBoundsException();
+		}
 		return this.tasks[listIndex];
 	}
 	/**
@@ -169,6 +175,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		this.tasks[index] = tL;
 		//notify observers of this class to the change
 		this.setChanged();
+		setChanged(true);
 		this.notifyObservers();
 		update(this, tL);
 		//return the index of the added tasklist
@@ -181,6 +188,9 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	public void removeTaskList(int listIndex) {
 		//check for index out of bounds exception
 		if (listIndex < 0 || listIndex >= this.tasks.length) {
+			throw new IndexOutOfBoundsException();
+		}
+		if (this.getNumTaskLists() < 1) {
 			throw new IndexOutOfBoundsException();
 		}
 		
@@ -249,7 +259,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 			}
 			tasks = new TaskList[RESIZE];
 			tasks = (TaskList[]) temp.toArray(tasks);
-			numLists = temp.size();
+			numLists = temp.size(); 
 			categories = (CategoryList)tl;
 			categories.addObserver(this);
 			filename = (String)in.readObject();
