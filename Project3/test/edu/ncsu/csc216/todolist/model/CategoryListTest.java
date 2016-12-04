@@ -12,7 +12,7 @@ public class CategoryListTest {
 	/**
 	 * This is a test method for testing all the methods in CategoryList
 	 */
-	@Test
+	@Test 
 	public void test() {
 		CategoryList tester = new CategoryList();
 		tester.addCategory("cat1", "description");
@@ -22,6 +22,7 @@ public class CategoryListTest {
 		assertEquals(tester.getCategoryAt(0).getCategoryID(), "C1");
 		tester.removeCategoryAt(0);
 		assertEquals(tester.size(), 0);
+		assertTrue(tester.isEmpty());
 		tester.addCategory("cat2", "desc");
 		assertEquals(tester.size(), 1);
 		assertEquals(tester.getCategoryAt(0).getName(), "cat2");
@@ -38,5 +39,9 @@ public class CategoryListTest {
 		tester.removeCategory("C5");
 		assertEquals(tester.getCategoryAt(2).getName(), "cat6");
 		assertEquals(tester.getCategoryAt(2).getCategoryID(), "C6");
+		
+		assertFalse(tester.isEmpty());
+		assertEquals(1, tester.indexOf("C4"));
+		assertEquals(2, tester.indexOfName("cat6"));
 	}
 }
