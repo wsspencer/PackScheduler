@@ -90,20 +90,20 @@ public class TaskTableModel extends AbstractTableModel implements Serializable, 
 	}
 	/**
 	 * This a method for adding a model listener to our JTable
-	 * @param arg0 the argument for this JTable to listen to
+	 * @param listener the argument for this JTable to listen to
 	 */
 	@Override
-	public void addTableModelListener(TableModelListener arg0) {
+	public void addTableModelListener(TableModelListener listener) {
 		// TODO Auto-generated method stub
 		
 	}
 	/**
 	 * This a method for getting the column in the table's class
-	 * @param arg0 the column argument
+	 * @param colIndex the column argument
 	 * @return Class the class of the column
 	 */
 	@Override
-	public Class<?> getColumnClass(int arg0) {
+	public Class<?> getColumnClass(int colIndex) {
 		// Have to replace null with something since abstracttablemodel makes me use these renderers with their 
 		//fire cell methods
 		//(just returning string and ignoring the param because it should be a table of all strings right?)
@@ -112,37 +112,36 @@ public class TaskTableModel extends AbstractTableModel implements Serializable, 
 	}
 	/**
 	 * This a method for getting the name of a column
-	 * @param arg0 the column argument
+	 * @param colIndex the column argument
 	 * @return String the name of the column
 	 */
 	@Override
-	public String getColumnName(int arg0) {
+	public String getColumnName(int colIndex) {
 		// get the column name we are using at the parameterized index
-		return this.colNames[arg0];
+		return this.colNames[colIndex];
 	}
 	/**
 	 * This a method for telling whether or not a cell is editable
-	 * @param arg0 the int for row index
-	 * @param arg1 the int for column index
+	 * @param rowIndex the int for row index
+	 * @param colIndex the int for column index
 	 * @return boolean for whether or not a cell is editable
 	 */
 	@Override
-	public boolean isCellEditable(int arg0, int arg1) {
+	public boolean isCellEditable(int rowIndex, int colIndex) {
 		//check the cell at the given indexes to see if it's editable
 		//(just returning false for now because I don't know what should and shouldn't be editable)
 		return false;
 	}
 	/**
 	 * This a method for removing a model listener to our JTable
-	 * @param arg0 the tablemodellistener we want to remove
+	 * @param listener the tablemodellistener we want to remove
 	 */
 	@Override
-	public void removeTableModelListener(TableModelListener arg0) {
+	public void removeTableModelListener(TableModelListener listener) {
 		// Just remove the listener in the parameter from this instance
 		//this.removeTableModelListener(arg0);
+		
 	}
-	
-	
 }
 
 

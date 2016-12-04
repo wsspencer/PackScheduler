@@ -186,7 +186,10 @@ public class Task extends Observable implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		return super.equals(obj);
+		if (this.getTaskID().equals(((Task) obj).getTaskID())) {
+			return true;
+		}
+		return false;
 	}
 	/**
 	 * This is an integer method for hashing code
@@ -195,7 +198,7 @@ public class Task extends Observable implements Serializable {
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
-		return super.hashCode();
+		return 5;
 	}
 	/**
 	 * This is an integer method for comparing this task to the parameter

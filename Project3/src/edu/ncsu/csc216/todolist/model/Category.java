@@ -118,8 +118,8 @@ public class Category extends Observable implements Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
+		// Intentionally useless
+		return 5;
 	}
 	/**
 	 * This is a String method for generating a String represenation of our category's data
