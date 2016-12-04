@@ -30,7 +30,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 */
 	public TaskList(String listName, String listId) {
 		this.name = listName;
-		this.taskListID = listId;
+		setTaskListID(listId);
 		//initialize our instance of a linked list
 		this.list = new LinkedList();
 		//initialize nextTaskNum
@@ -67,7 +67,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 		this.taskListID = newId;
 		setChanged();
 		notifyObservers();
-	}
+	} 
 	/**
 	 * This is a simple getter method for retrieving the next task number in line
 	 * @return integer representing the next task number in sequence

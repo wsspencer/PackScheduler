@@ -11,7 +11,7 @@ import edu.ncsu.csc216.todolist.model.Category;
 /**
  * This is a UI class for displaying the table of tasks in the GUI
  * @author Scott Spencer
- *
+ * 
  */
 public class TaskTableModel extends AbstractTableModel implements Serializable, TableModel {
 	/** This is our long constant for the serial version UID this class will utilize */
@@ -88,26 +88,50 @@ public class TaskTableModel extends AbstractTableModel implements Serializable, 
 		setValueAt(data.isCompleted(), rowIndex, 6);
 		setValueAt(data.getDetails(), rowIndex, 7);
 	}
+	/**
+	 * This a method for adding a model listener to our JTable
+	 * @param arg0 the argument for this JTable to listen to
+	 */
 	@Override
 	public void addTableModelListener(TableModelListener arg0) {
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * This a method for getting the column in the table's class
+	 * @param arg0 the column argument
+	 * @return Class<?> the class of the column
+	 */
 	@Override
 	public Class<?> getColumnClass(int arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	/**
+	 * This a method for getting the name of a column
+	 * @param arg0 the column argument
+	 * @return String the name of the column
+	 */
 	@Override
 	public String getColumnName(int arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	/**
+	 * This a method for telling whether or not a cell is editable
+	 * @param arg0 the int for row index
+	 * @param arg1 the int for column index
+	 * @return boolean for whether or not a cell is editable
+	 */
 	@Override
 	public boolean isCellEditable(int arg0, int arg1) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	/**
+	 * This a method for removing a model listener to our JTable
+	 * @param arg0 the tablemodellistener we want to remove
+	 */
 	@Override
 	public void removeTableModelListener(TableModelListener arg0) {
 		// TODO Auto-generated method stub
