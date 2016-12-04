@@ -55,7 +55,7 @@ public class LinkedList extends Observable implements List, Serializable {
 			return null;
 		}
 		//add to front of empty list
-		if (index == 0 && n == null) {
+		if (n == null) {
 			n = new Node(data, null);
 			return n;
 		}
