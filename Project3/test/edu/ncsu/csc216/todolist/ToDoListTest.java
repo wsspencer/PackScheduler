@@ -41,9 +41,10 @@ public class ToDoListTest {
 		
 		
 		//test file processing functionality
-		tester.setFilename("poop.txt");
-		assertEquals(tester.getFilename(), "poop.txt");
-		
+		tester.setFilename("changeName.txt"); 
+		assertEquals(tester.getFilename(), "changeName.txt");
+		tester.openDataFile("test-files/testFile.txt");
+		tester.saveDataFile("test-files/saveFile.txt");
 		//make sure update doesn't throw anything
 		tester.update(tester, tester.getCategoryList());
 		

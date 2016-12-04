@@ -93,7 +93,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 		this.filename = filename;
 		setChanged();
 		notifyObservers();
-	}
+	} 
 	/**
 	 * This is a method used to retrieve the number of the "next" task list (for ID #s.  Initiated at 1, then increments)
 	 * @return int representing the index number of the "next" task list for the purpose of giving a unique identifier to new lists
