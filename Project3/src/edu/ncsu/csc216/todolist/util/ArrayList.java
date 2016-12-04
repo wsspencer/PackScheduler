@@ -131,11 +131,11 @@ public class ArrayList implements List, Serializable {
 		//MUST occur before the check if index > size, so we know if we need to grow the array or not
 		//variable to count non-null elements in list
 		//ensures capacity doubles if size reaches the cap.
-		if (this.list.length == this.size()) {
-			this.list = Arrays.copyOf(this.list, this.size() + RESIZE);
-		}	
-		//increment size HERE because we have grown the array if we needed to and need to use it in our looping
 		this.size++;
+		if (this.list.length == this.size) {
+			this.list = Arrays.copyOf(this.list, this.list.length + RESIZE);
+		}	
+		
 		if (index < 0 || index >= this.list.length) {
 			throw new ArrayIndexOutOfBoundsException(index);
 		}

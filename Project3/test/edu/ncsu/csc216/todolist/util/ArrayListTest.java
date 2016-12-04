@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import edu.ncsu.csc216.todolist.model.Category;
-import edu.ncsu.csc216.todolist.model.CategoryList;
 /**
  * This is a test class for testing the functionality of the ArrayList class
  * @author Scott Spencer
@@ -38,6 +37,7 @@ public class ArrayListTest {
 		al.add(0, cat3);
 		al.add(0, cat4);
 		al.add(0, cat5);
+		assertEquals(al.size(), 5);
 		al.add(0, cat6);
 		al.add(0, cat7);
 		al.add(0, cat8);
@@ -45,7 +45,7 @@ public class ArrayListTest {
 		al.add(0, cat10);
 		al.add(0, cat11);
 		assertEquals(al.size(), 11);
-		assertEquals(al.indexOf(cat1), 0);
+		assertEquals(al.indexOf(cat11), 0);
 		al.toArray(tasks);
 	}
 
