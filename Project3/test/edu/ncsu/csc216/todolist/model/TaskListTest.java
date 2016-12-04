@@ -26,7 +26,7 @@ public class TaskListTest {
 		assertEquals(tester.getTaskAt(0).getTitle(), "title");
 		assertEquals(tester.get2DArray()[0][0], "TL1");
 		assertEquals(tester.get2DArray()[0][1], "title");
-		assertEquals(tester.get2DArray()[0][7], "details");
+		assertEquals(tester.get2DArray()[0][7], "details"); 
 
 		//test remove one element from list of size 1
 		tester.removeTaskAt(0);
@@ -45,6 +45,17 @@ public class TaskListTest {
 		assertEquals(tester.getTaskAt(4).getTitle(), "title5");
 		tester.removeTaskAt(3);
 		assertEquals(tester.getTaskAt(3).getTitle(), "title5");
+		
+		assertEquals(3, tester.indexOf("title5"));
+		assertFalse(tester.isEmpty());
+		
+		tester.removeTask("title5");
+		assertEquals(3, tester.size());
+		
+		tester.setName("Test List");
+		assertEquals(tester.getName(), "Test List");
+		
+		tester.update(tester, tester.get2DArray());
 	}
 
 }

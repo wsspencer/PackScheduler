@@ -15,7 +15,7 @@ public class CategoryListTest {
 	@Test 
 	public void test() {
 		CategoryList tester = new CategoryList();
-		assertEquals(tester.getName(), "New List");
+		assertEquals(tester.getName(), "Categories");
 		tester.addCategory("cat1", "description");
 		assertEquals(tester.size(), 1);
 		assertEquals(tester.getCategoryAt(0).getName(), "cat1");

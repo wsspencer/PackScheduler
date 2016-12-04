@@ -28,7 +28,7 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 		//initialize our instance of an arraylist
 		this.nextCategoryNum = 1;
 		this.list = new ArrayList();
-		this.name = "New List";
+		this.name = "Categories";
 	}
 	/**
 	 * This is a simple getter method for retrieving the name of this category list
