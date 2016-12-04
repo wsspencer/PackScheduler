@@ -77,6 +77,11 @@ public class LinkedList extends Observable implements List, Serializable {
 			n.next = new Node(data, temp);
 			return n.next;
 		}
+		if (n.next == null) {
+			Node ret = new Node (data, null);
+			n.next = ret;
+			return ret;
+		}
 		return insertAt(--index, data, n.next);
 	}
 	/**
