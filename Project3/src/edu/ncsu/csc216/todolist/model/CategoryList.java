@@ -68,7 +68,10 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * @return Category instance we want to retrieve from the list
 	 */
 	public Category getCategoryAt(int index) {
-		return (Category) this.list.get(index);
+		if (index > this.size() || this.size() == 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		return (Category) this.list.get(index); 
 	}
 	/**
 	 * This is an integer method used to return the index at which the category with the parameterized
@@ -125,6 +128,9 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 	 * @return Category the category stored at the parameterized index
 	 */
 	public Category removeCategoryAt(int index) {
+		if (index < 0 || index >= this.size()) {
+			throw new IndexOutOfBoundsException();
+		}
 		//call our instance of arraylist and return whether or not we were able to remove the parameterized
 		//index from the arraylist
 		Category temp = (Category) this.list.get(index);

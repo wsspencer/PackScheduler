@@ -91,7 +91,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @param filename the string filename we want to set our variable to
 	 */
 	public void setFilename(String filename) {
-		if (filename == null) {
+		if (filename == null || filename.equals("")) {
 			throw new IllegalArgumentException();
 		}
 		this.filename = filename;
@@ -133,7 +133,7 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 * @return TaskList the task list stored at the parameterized index
 	 */
 	public TaskList getTaskList(int listIndex) {
-		if (this.getNumTaskLists() == listIndex) {
+		if (this.getNumTaskLists() <= listIndex || listIndex < 0) {
 			throw new IndexOutOfBoundsException();
 		}
 		return this.tasks[listIndex];
@@ -187,10 +187,8 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	 */
 	public void removeTaskList(int listIndex) {
 		//check for index out of bounds exception
-		if (listIndex < 0 || listIndex >= this.tasks.length) {
-			throw new IndexOutOfBoundsException();
-		}
-		if (this.getNumTaskLists() < 1) {
+		if (listIndex < 0 || listIndex >= this.tasks.length || listIndex >= this.getNumTaskLists() || 
+				this.getNumTaskLists() < 1) {
 			throw new IndexOutOfBoundsException();
 		}
 		
@@ -288,11 +286,11 @@ public class ToDoList extends Observable implements Serializable, Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// Is automatically called? Do I implement that or is it implicitly part of the code?
-	//	if (o instanceof TaskList || o.equals(categories)) {
+		if (o instanceof TaskList || o.equals(categories)) {
 			this.setChanged();
 			o.notifyObservers(arg);
 			setChanged(true);
-	//	}
+		}
 	}
 }
 

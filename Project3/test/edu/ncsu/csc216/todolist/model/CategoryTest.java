@@ -8,7 +8,7 @@ import org.junit.Test;
  * @author Scott Spencer
  *
  */
-public class CategoryTest {
+public class CategoryTest { 
 	/**
 	 * This is a test method for testing all the methods in the Category class
 	 */
