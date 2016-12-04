@@ -14,7 +14,12 @@ public class CategoryTest {
 	 */
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		Category cat = new Category("cat", "deets", "C1");
+		Category copyCat = new Category("cat", "deets", "C1");
+		cat.hashCode();
+		assertEquals(cat.compareTo(copyCat), 0);
+		assertTrue(cat.equals(copyCat));
+		assertEquals(cat.toString(), "cat");
 	}
 
 }
