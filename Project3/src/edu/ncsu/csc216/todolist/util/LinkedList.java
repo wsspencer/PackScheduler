@@ -11,7 +11,7 @@ public class LinkedList implements List, Serializable {
 	/**
 	 * This is a nested class for defining the characteristics of a Node to be used in this linked list
 	 * @author Scott Spencer
-	 *
+	 * 
 	 */
 	public class Node implements Serializable {
 		/** This is a self-referential variable for referencing the "next" node in the list (recursive data structure) */
@@ -50,6 +50,10 @@ public class LinkedList implements List, Serializable {
 	 * @return Node the Node we are inserting
 	 */
 	private Node insertAt(int index, Object data, Node n) {
+		//return null if we go through the list without finding the index
+		if (index < 0) {
+			return null;
+		}
 		if (index == 0 && n == null) {
 			n = new Node(data, null);
 			return n;
@@ -67,11 +71,7 @@ public class LinkedList implements List, Serializable {
 			n.next = new Node(data, temp);
 			return n.next;
 		}
-		else {
-			insertAt(index--, data, n.next);
-		}
-		//if we don't find the data in the list, return null
-		return null;
+		return insertAt(--index, data, n.next);
 	}
 	/**
 	 * This is an int method used for retrieving the index of a node with the given
@@ -89,13 +89,10 @@ public class LinkedList implements List, Serializable {
 		if (n.value == data) {
 			return index;
 		}
-		else {
-			//call the method for recursion, with the same data we're looking for and the next node in list and incremented index 
-			//(incrementing index so we can return the correct index when we find the appropriate data in the list node)
-			indexOf(data, n.next, index++);
-		}
-		//return -1 if we don't find it using recursion
-		return -1;
+		//call the method for recursion, with the same data we're looking for and the next node in list and incremented index 
+		//(incrementing index so we can return the correct index when we find the appropriate data in the list node)
+		return 1 + indexOf(data, n.next, index++);
+
 	}
 	/**
 	 * This is a Node method used for removing a node from the list, given the index we 
@@ -108,7 +105,7 @@ public class LinkedList implements List, Serializable {
 		//recursively find the right index and remove (I guess assuming we are passed the head to begin with from the public method?)
 	
 		
-		//NEEDS FIXING
+		//NEEDS FIXING???
 		
 		
 		//save the node for returning what's been removed
