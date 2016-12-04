@@ -34,9 +34,7 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 		//initialize our instance of a linked list
 		this.list = new LinkedList();
 		//initialize nextTaskNum
-		this.nextTaskNum = 1;
-		this.setTaskListID("TL" + nextTaskNum);
-		notifyObservers();
+		this.nextTaskNum = 1;		
 	}
 	/**
 	 * This is a simple getter method for the name of this task list
@@ -95,17 +93,22 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 * @return boolean stating whether or not the task was added to the list
 	 */
 	public boolean addTask(String title, String details, Date startDateTime, Date endDateTime, Category c) {
-		this.setTaskListID("TL" + getNextTaskNum());
+		String taskId = "TL" + this.getNextTaskNum();
 		//unimplemented
-		Task t = new Task(title, details, startDateTime, endDateTime, c, this.getTaskListID());
+		Task t = new Task(title, details, startDateTime, endDateTime, c, taskId);
 		//increment next task num since we used the current one on "t"
 		this.incNextTaskNum();
 		//add this as observer to our "t" task
 		t.addObserver(this);
-		setChanged();
-		notifyObservers();
 		//add and return if it was added or not
-		return this.list.add(t);
+		this.list.add(t);
+		if (this.list.contains(t)) {
+			//tell the observers it was added
+			setChanged();
+			notifyObservers();
+			return true;
+		}
+		return false;
 		
 	}
 	/**
@@ -157,7 +160,8 @@ public class TaskList extends Observable implements Tabular, Serializable, Obser
 	 */
 	public Task removeTaskAt(int taskNum) {
 		//call the build in remove method in our linkedlist instance
-		Task ret = (Task) this.list.remove(taskNum);
+		Task ret = (Task) this.list.get(taskNum);
+		this.list.remove(taskNum);
 		setChanged();
 		notifyObservers();
 		return ret;

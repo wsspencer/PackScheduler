@@ -15,7 +15,32 @@ public class TaskListTest {
 	 */
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		TaskList tester = new TaskList("New List", "T1");
+		
+		assertEquals("New List", tester.getName());
+		assertEquals("T1", tester.getTaskListID());
+		
+		Category testCat = new Category("testCat", "deets", "C1");
+		//test it's building the array and adding right
+		tester.addTask("title", "details", null, null, testCat);
+		assertEquals(tester.getTaskAt(0).getTitle(), "title");
+		assertEquals(tester.get2DArray()[0][0], "TL1");
+		assertEquals(tester.get2DArray()[0][1], "title");
+		assertEquals(tester.get2DArray()[0][7], "details");
+
+		//test remove one element from list of size 1
+		tester.removeTaskAt(0);
+		
+		//test remove from larger list
+		tester.addTask("title1", "details", null, null, testCat);
+		tester.addTask("title2", "details", null, null, testCat);
+		tester.addTask("title3", "details", null, null, testCat);
+		tester.addTask("title4", "details", null, null, testCat);
+		tester.addTask("title5", "details", null, null, testCat);
+		assertEquals(tester.size(), 5);
+		assertEquals(tester.getTaskAt(3).getTitle(), "title4");
+		tester.removeTaskAt(3);
+		assertEquals(tester.getTaskAt(3).getTitle(), "title5");
 	}
 
 }

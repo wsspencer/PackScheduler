@@ -83,6 +83,9 @@ public class LinkedList implements List, Serializable {
 	 */
 	private int indexOf(Object data, Node n, int index) {
 		//find the index of the info passed recursively (assuming the public method will pass us the head and index of 0 for our start
+		if (n == null) {
+			return -1;
+		}
 		if (n.value == data) {
 			return index;
 		}
@@ -103,11 +106,24 @@ public class LinkedList implements List, Serializable {
 	 */
 	private Node remove(int index, Node n) {
 		//recursively find the right index and remove (I guess assuming we are passed the head to begin with from the public method?)
+	
+		
+		//NEEDS FIXING
+		
+		
+		//save the node for returning what's been removed
+		Node returnNode = n;
+		//remove in the case we are at the last element in the list
 		if (index == 0) {
-			//leapfrog it
-			Node temp = n;
-			n = n.next;
-			return temp;
+			this.head = null;
+			return returnNode;
+		}
+		//if we get to 1 before 0, not the last element
+		if (index == 1) {
+			//leapfrog it 
+			Node batrocZeLeaper = n.next;
+			n.next = batrocZeLeaper.next;
+			return returnNode; 
 		}
 		else {
 			remove(index--, n.next);
@@ -158,7 +174,7 @@ public class LinkedList implements List, Serializable {
 	@Override
 	public boolean contains(Object o) {
 		//checks if the parameterized object has an index in the list
-		if (this.indexOf(o) != -1) {
+		if (indexOf(o) != -1) {
 			return true;
 		}
 		//returns false if the index of the parameterized object is not found in the list
@@ -171,15 +187,23 @@ public class LinkedList implements List, Serializable {
 	 */
 	@Override
 	public boolean add(Object o) {
-		// call the insertAt private method to use recursion to add a method to the end of the list (index of the size
-		// of the list - 1) and return false if it returns false, true if it was successful and returns the node it added 
-		// to the list.
-		if (insertAt(0, o, this.head) == null) {
-			return false;
+		// Walk to the end of the list and set the last value (currently null) to a new node containing the desired 
+		//data.  Unless size is zero, then just set head to what we want it to be.
+		//insertAt(0, o, this.head);
+		if (this.size() == 0) {
+			this.head = new Node(o, null);
 		}
 		else {
+			Node walker = head;
+			for (int i = 1; i < this.size(); i++) {
+				walker = walker.next;
+			}
+			walker.next = new Node(o, null);
+		}
+		if (contains(o)) {
 			return true;
 		}
+		return false;
 	}
 	/**
 	 * This is an Object method for retrieving an Object stored at a given index
@@ -193,9 +217,9 @@ public class LinkedList implements List, Serializable {
 		for (int i = 0; i < index; i++) {
 			walker = walker.next;
 		}
-		//since we stopped at the index just before our parameter (remember we used < not <=), we can call walker.next to retrieve
+		//since we stopped at the index just before our parameter, walker was still set to walker.next so it holds 
 		//the node stored at the desired index
-		return walker.next.value;
+		return walker.value;
 		//do we need to return the node or the value in the node?  find that out.  probably value, right?
 	}
 	/**

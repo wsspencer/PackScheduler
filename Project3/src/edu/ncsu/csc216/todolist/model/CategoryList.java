@@ -128,7 +128,9 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 		//call our instance of arraylist and return whether or not we were able to remove the parameterized
 		//index from the arraylist
 		Category temp = (Category) this.list.get(index);
+		//delete the category as an observer and remove it from our list instance
 		this.list.remove(index);
+		temp.deleteObserver(this);
 		//notify the observers of the change
 		this.setChanged();
 		this.notifyObservers();
@@ -144,7 +146,11 @@ public class CategoryList extends Observable implements Tabular, Serializable, O
 		//run the loop until we find a category ID equal to the parameter, if it is not found, return false
 		for (int i = 0; i < this.list.size(); i++) {
 			if (((Category) this.list.get(i)).getCategoryID().equals(iD)) {
+				//remove the indexed category from our observer and remove it from the list.
+				Category temp = (Category) this.list.get(i);
 				this.list.remove(i);
+				temp.deleteObserver(this);
+
 				//notify the observers about it
 				this.setChanged();
 				this.notifyObservers();
