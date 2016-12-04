@@ -24,7 +24,7 @@ public class LinkedList extends Observable implements List, Serializable {
 		 * This is the constructor method used for creating a new node with the given parameters
 		 * @param data the object we want stored in this node of the list 
 		 * @param next the Node we want next in line of the list
-		 */
+		 */ 
 		public Node(Object data, Node next) {
 			this.next = next;
 			this.value = data;
@@ -102,7 +102,7 @@ public class LinkedList extends Observable implements List, Serializable {
 		}
 		//call the method for recursion, with the same data we're looking for and the next node in list and incremented index 
 		//(incrementing index so we can return the correct index when we find the appropriate data in the list node)
-		return 1 + indexOf(data, n.next, index++);
+		return 1 + indexOf(data, n.next, ++index);
 
 	}
 	/**
@@ -177,6 +177,9 @@ public class LinkedList extends Observable implements List, Serializable {
 	 */
 	@Override
 	public boolean contains(Object o) {
+		if (this.isEmpty()) {
+			return false;
+		}
 		//checks if the parameterized object has an index in the list
 		if (indexOf(o) != -1) {
 			return true;
@@ -194,6 +197,9 @@ public class LinkedList extends Observable implements List, Serializable {
 		// Walk to the end of the list and set the last value (currently null) to a new node containing the desired 
 		//data.  Unless size is zero, then just set head to what we want it to be.
 		//insertAt(0, o, this.head);
+		if (o == null) {
+			throw new NullPointerException();
+		}
 		if (this.size() == 0) {
 			this.head = new Node(o, null);
 		}
@@ -234,7 +240,10 @@ public class LinkedList extends Observable implements List, Serializable {
 	@Override
 	public void add(int index, Object o) {
 		// call recursive method insert at with the given parameters and our instance's head node
-		insertAt(index, o, this.head);
+		if (index >= 0 && index < this.size()) {
+			insertAt(index, o, this.head);	
+		}
+		
 	}
 	/**
 	 * This is an Object method for removing an element stored at the given index
