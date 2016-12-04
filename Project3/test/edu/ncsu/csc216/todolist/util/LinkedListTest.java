@@ -42,6 +42,9 @@ public class LinkedListTest {
 		ll.add(3, tsk7);
 		assertEquals(6, ll.indexOf(tsk7));
 		
+		Task tsk8 = new Task("Task 8", "deets8", null, null, testCat, "T8");
+		assertEquals(ll.indexOf(tsk8), -1);
+		
 		ll.remove(3);
 		assertEquals(ll.indexOf(tsk1), 6);
 	}

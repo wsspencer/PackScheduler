@@ -95,7 +95,8 @@ public class LinkedList extends Observable implements List, Serializable {
 	private int indexOf(Object data, Node n, int index) {
 		//find the index of the info passed recursively (assuming the public method will pass us the head and index of 0 for our start
 		if (n == null) {
-			return -1;
+			System.out.println("do you even go here?");
+			return - (this.size() + 1);
 		}
 		if (n.value == data) {
 			return index;
@@ -253,6 +254,9 @@ public class LinkedList extends Observable implements List, Serializable {
 	@Override
 	public Object remove(int index) {
 		//call the private recursive method to navigate the list starting with the head node we have
+		if (this.isEmpty()) {
+			throw new IndexOutOfBoundsException();
+		}
 		return this.remove(index, this.head);
 	}
 	/**
