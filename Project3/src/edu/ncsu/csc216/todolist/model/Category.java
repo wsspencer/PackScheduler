@@ -123,8 +123,9 @@ public class Category extends Observable implements Serializable {
 		// Intentionally useless
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Integer.valueOf(this.categoryID);
-		return result;	}
+		result = prime * result + Integer.parseInt(this.getCategoryID().substring(1));
+		return result;	
+	}
 	/**
 	 * This is a String method for generating a String represenation of our category's data
 	 * @return String representation of our Category

@@ -14,12 +14,12 @@ public class CategoryTest {
 	 */
 	@Test
 	public void test() {
-		Category cat = new Category("cat", "deets", "C1");
-		Category copyCat = new Category("cat", "deets", "C1");
-		Category nonCopyCat = new Category("kit", "derts", "C2");
+		Category cat = new Category("C1", "cat", "deets");
+		Category copyCat = new Category("C1", "cat", "deets");
+		Category nonCopyCat = new Category("C2", "cat", "deets");
 		cat.hashCode();
 		assertEquals(cat.compareTo(copyCat), 0);
-		assertTrue(cat.equals(copyCat));
+		assertTrue(cat.equals(copyCat)); 
 		assertFalse(cat.equals(nonCopyCat));
 		assertEquals(cat.toString(), "cat");
 	}
