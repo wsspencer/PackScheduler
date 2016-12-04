@@ -23,7 +23,7 @@ public class Category extends Observable implements Serializable {
  	 * @param desc The String representation of a category's description
 	 * @param id The String representation of a category's unique identifier
 	 */
-	public Category(String name, String desc, String id) {
+	public Category(String id, String name, String desc) {
 		setName(name);
 		setDescription(desc);
 		setCategoryID(id);
@@ -43,9 +43,11 @@ public class Category extends Observable implements Serializable {
 		if (name == null || name.equals("")) {
 			throw new IllegalArgumentException();
 		}
-		this.name = name;
-		this.setChanged();
-		this.notifyObservers();
+		else {
+			this.name = name;
+			this.setChanged();
+			this.notifyObservers();
+		}
 	}
 	/**
 	 * This is a simple getter method for retrieving our category's description variable
@@ -119,8 +121,10 @@ public class Category extends Observable implements Serializable {
 	@Override
 	public int hashCode() {
 		// Intentionally useless
-		return 5;
-	}
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Integer.valueOf(this.categoryID);
+		return result;	}
 	/**
 	 * This is a String method for generating a String represenation of our category's data
 	 * @return String representation of our Category
