@@ -139,7 +139,6 @@ public class ArrayList implements List, Serializable {
 		//MUST occur before the check if index > size, so we know if we need to grow the array or not
 		//variable to count non-null elements in list
 		//ensures capacity doubles if size reaches the cap.
-		this.size++;
 		if (this.list.length == this.size) {
 			this.list = Arrays.copyOf(this.list, this.list.length + RESIZE);
 		}	
@@ -154,9 +153,8 @@ public class ArrayList implements List, Serializable {
 		for (int i = this.size(); i > index; i--) {
 			list[i] = list[i - 1];
 		}
-		if (index >= 0 && index < this.size) {
-			list[index] = o;
-		}
+		this.size++;
+		list[index] = o;
 	}
 	/**
 	 * This is an Object method for removing an element stored at the given index
