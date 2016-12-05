@@ -106,7 +106,7 @@ public class ArrayList implements List, Serializable {
 		}	
 		if (o == null) {
 			//adding a null
-			return false;
+			throw new NullPointerException();
 		}
 		int i = 0;
 		//walks the list array until we get our first empty slot (should be the end of the list
@@ -154,7 +154,9 @@ public class ArrayList implements List, Serializable {
 		for (int i = this.size(); i > index; i--) {
 			list[i] = list[i - 1];
 		}
-		list[index] = o;
+		if (index >= 0 && index < this.size) {
+			list[index] = o;
+		}
 	}
 	/**
 	 * This is an Object method for removing an element stored at the given index
