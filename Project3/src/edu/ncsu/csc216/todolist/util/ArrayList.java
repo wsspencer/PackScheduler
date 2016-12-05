@@ -28,6 +28,9 @@ public class ArrayList implements List, Serializable {
 	 * @param initSize integer representation of the number of elements in the list
 	 */
 	public ArrayList(int initSize) {
+		if (initSize == 0) {
+			throw new IllegalArgumentException();
+		}
 		this.list = new Object[initSize];
 		this.size = 0;
 	}
@@ -75,6 +78,9 @@ public class ArrayList implements List, Serializable {
 	 */
 	@Override
 	public boolean contains(Object o) {
+		if (o == null) {
+			return false;
+		}
 		//this will be our check to see if an element in our array is equal to the parameter
 		boolean contains = false;
 		// this will loop for the entirety of our array and check each index for objects equal to our parameter
@@ -118,7 +124,10 @@ public class ArrayList implements List, Serializable {
 	 */
 	@Override
 	public Object get(int index) {
-		return this.list[index];
+		if (index >= 0 && index < this.size()) {
+			return this.list[index]; 
+		}
+		throw new IndexOutOfBoundsException();
 	}
 	/**
 	 * This is a void method used to add an element to a specific index in the list

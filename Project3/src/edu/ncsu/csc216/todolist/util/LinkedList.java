@@ -200,6 +200,9 @@ public class LinkedList extends Observable implements List, Serializable {
 		if (o == null) {
 			throw new NullPointerException();
 		}
+		if (this.contains(o)) {
+			throw new IllegalArgumentException();
+		}
 		if (this.size() == 0) {
 			this.head = new Node(o, null);
 		}
@@ -238,12 +241,11 @@ public class LinkedList extends Observable implements List, Serializable {
 	 * @param o the object we want to add to the list
 	 */
 	@Override
-	public void add(int index, Object o) {
+	public void add(int index, Object o) { 
 		// call recursive method insert at with the given parameters and our instance's head node
-		if (index >= 0 && index < this.size()) {
+		if (index >= 0 && index < this.size()) { 
 			insertAt(index, o, this.head);	
 		}
-		
 	}
 	/**
 	 * This is an Object method for removing an element stored at the given index
